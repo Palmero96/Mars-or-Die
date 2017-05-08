@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "glew.h"
+//#include "glew.h"
 #include "glut.h"
 #include "World.h"
 
@@ -9,6 +9,7 @@ World world;
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
+
 /*
 static char* readFile(const char* filename) {
 	// Open file
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
+	gluPerspective(40.0, 800 / 600.0f, 0.1, 400);
 
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);

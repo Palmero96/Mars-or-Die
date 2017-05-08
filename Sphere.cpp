@@ -1,14 +1,14 @@
 #include "Sphere.h"
 
 Sphere::Sphere() {
-	SetPos(0.0, 0.0);
+	SetPos(.0, 0.0);
 }
 
 Sphere::~Sphere() {}
 
-void Sphere::SetPos(float x, float y) {	
+void Sphere::SetPos(float x, float z) {	
 	position.x = x;
-	position.y = y;
+	position.y = z;
 }
 
 void Sphere::SetColor(float r, float g, float b) {
@@ -28,7 +28,7 @@ void Sphere::SetRadius(float r) {
 void Sphere::Draw() {
 
 	glPushMatrix();
-	glTranslatef(position.x, position.y, 0);
+	glTranslatef(position.x, 0, position.y);
 	glColor3f(red, green, blue);
 	glutSolidSphere(radius, 40, 40);
 	glPopMatrix();
