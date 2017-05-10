@@ -10,36 +10,6 @@ void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 
-/*
-static char* readFile(const char* filename) {
-	// Open file
-	FILE* fp = fopen(filename, "r");
-	fseek(fp, 0, SEEK_END);
-	long file_length = ftell(fp);
-	fseek(fp, 0, SEEK_SET);
-	char* contents = new char[file_length + 1];
-	for (int i = 0; i < file_length + 1; i++)
-		contents[i];
-	fread(contents, 1, file_length, fp);
-	contents[file_length + 1] = '\0';
-	fclose(fp);
-	return contents;
-}
-
-
-
-GLuint makeVertxShader(const char* shaderSource){	// función que devuelve la ID del Vertex Shader a partir del .txt
-
-	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);	// Se crea un unsigned int donde se guarda la id del shader
-	glShaderSource(vertexShaderID, 1, (const GLchar**)&shaderSource, NULL);
-	glCompileShader(vertexShaderID);
-	return vertexShaderID;
-}
-
-
-*/
-
-
 int main(int argc, char* argv[])
 {
 	//Inicializar el gestor de ventanas GLUT
