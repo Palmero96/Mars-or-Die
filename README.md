@@ -10,15 +10,15 @@ understanding of data management in computers and microprocessors.
 It consists of a 3D graphics game in which the point is to get a cargo and human spaceship to... MARS!!
 
 There are several phases on the game:
-  The first one consists in selecting the appropiate time to launch the spaceship according to the orbital position of
-Mars and the Earth. Once you get that right, the spaceships first stage needs to get unlockedfrom the rest of the shuttle.
+  The first one consists on selecting the appropiate time to launch the spaceship according to the orbital position of
+Mars and the Earth. Once you get that right, the spaceships first stage needs to get unlocked from the rest of the shuttle.
 
   The next move is to get the space shuttle save from the Earth to Mars, an adventure in which you'll have to avoid 
 dangerous asteroids, friendly aliens who want you to sign and donate money for the "Save the spontaneous appearing Whales" 
 organization and get "Towel Bonus" and extra fuel in order to continue the trip.
 
   If you have the skills to get here, human race we'll be saved, but first!... You'll need to land the spaceship in Mars!!
-Good luck stabilizing it with the Dragon Capsule lookalike engines! 
+Good luck stabilizing the Dragon Capsule with its engines! 
   
   May the force be with you and Don't Panic!
   
