@@ -7,40 +7,49 @@ World::~World()	{}
 
 void World::Initialize() {
 
-	x_eye = 110;
-	y_eye = 70;
-	z_eye = 110;
+	x_eye = 130;
+	y_eye = 150;
+	z_eye = -130;
 
-	sun.SetColor(1.0, 1.0, 0);
-	sun.SetRadius(5);
+	sun.SetColor(1.0F, 1.0F, 0);
+	sun.SetRadius(19);
 
-	earth.SetPos(-40.0, 10);
-	earth.SetRadius(1);
-	earth.SetColor(0.0, 0.0, 1.0);
+	earth.SetPos(-55.0F, 10);
+	earth.SetVel(2);
+	earth.SetRadius(2);
+	earth.SetColor(0.0F, 0.0F, 1.0F);
+	earth.SetR_elip(earth.GetPos());
 
-	mars.SetPos(40.0, 20);
-	mars.RiseRadius(0.7);
-	mars.SetColor(1.0, 0.5, 0);
+	mars.SetPos(69.0, 20);
+	mars.SetVel(1);
+	mars.SetRadius(1.7F);
+	mars.SetR_elip(mars.GetPos());
+	mars.SetColor(1.0F, 0.5F, 0);
 
-	d = sqrt(pow(x_eye, 2) + pow(y_eye, 2));
-	theta = atan2(x_eye, y_eye);
+	emitter.SetAmbient(1.0, 1.0, 1.0, 1.0);
+	emitter.SetDiffuse(1.0, 1.0, 1.0, 1.0);
+
+
+
+
 }
 
 void World::Draw() {
 	gluLookAt(x_eye, y_eye, z_eye,  // posicion del ojo
-		0.0, 0, 0.0,      // hacia que punto mira  (0,0,0) 
-		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
+		0.0, 0.0, 0.0,      // hacia que punto mira  (0,0,0) 
+		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 
 	sun.Draw();
 	earth.Draw();
 	mars.Draw();
+	
 }
 
 void World::Timer() {
 		
-	theta += 0.005;
-	x_eye = d*cos(theta);
-	z_eye = d*sin(theta);
-
+	earth.Move(earth.GetVel());
+	mars.Move(mars.GetVel());
 }
