@@ -31,3 +31,8 @@ May 13th 2017:
    - So far the Earth and Mars orbit the sun in circular orbits.
    - The orbits are drawn in the screen using GL_LINE_LOOP and 
         drawing multiple lines of these kind in a for loop.
+        
+May 14th 2017:
+   - Created a 'Shot' class to represent the users aim to mars from the earth.
+   - Not succesfully developed due to funny matrix that wont't do what I want them to do.
+  
