@@ -1,8 +1,7 @@
 #include "Sphere.h"
 
 Sphere::Sphere() {
-	position.x = 5.0;
-	position.y = 15.0;
+
 }
 
 Sphere::~Sphere() {}
@@ -31,11 +30,13 @@ void Sphere::SetRadius(float r) {
 }
 
 
-Vector2D Sphere::GetPos() {
+Vector2D Sphere::GetInitPos() {
 	return position_init;
 }
 
-
+Vector2D Sphere::GetPos() {
+	return position;
+}
 void Sphere::Draw() {
 
 	glPushMatrix();
@@ -43,10 +44,7 @@ void Sphere::Draw() {
 	glColor4f(red, green, blue, 1.0);
 	glutSolidSphere(radius, 40, 40);
 	glPopMatrix();
-
-
-		//Draws the orbit of each planet of the class Sphere
-	glBegin(GL_LINE_LOOP);	
+	glBegin(GL_LINE_LOOP);					//	ORBIT	
 	glColor4f(red, green, blue, 1.0);
 	for (float i = 0; i < 2 * 3.1416; i+=0.01) {	
 		glVertex3f(r_elip*cos(i), 0, r_elip*sin(i));

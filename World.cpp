@@ -1,3 +1,4 @@
+
 #include "World.h"
 
 
@@ -8,8 +9,8 @@ World::~World()	{}
 void World::Initialize() {
 
 	x_eye = 130;
-	y_eye = 150;
-	z_eye = -130;
+	y_eye = 130;
+	z_eye = 130;
 
 	sun.SetColor(1.0F, 1.0F, 0);
 	sun.SetRadius(19);
@@ -18,19 +19,14 @@ void World::Initialize() {
 	earth.SetVel(2);
 	earth.SetRadius(2);
 	earth.SetColor(0.0F, 0.0F, 1.0F);
-	earth.SetR_elip(earth.GetPos());
+	earth.SetR_elip(earth.GetInitPos());
+
 
 	mars.SetPos(69.0, 20);
 	mars.SetVel(1);
 	mars.SetRadius(1.7F);
-	mars.SetR_elip(mars.GetPos());
+	mars.SetR_elip(mars.GetInitPos());
 	mars.SetColor(1.0F, 0.5F, 0);
-
-	emitter.SetAmbient(1.0, 1.0, 1.0, 1.0);
-	emitter.SetDiffuse(1.0, 1.0, 1.0, 1.0);
-
-
-
 
 }
 
@@ -42,14 +38,31 @@ void World::Draw() {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
+	glLineWidth(3);
+	glColor3f(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex3f(0.0, 0.0, 0.0);
+	glVertex3f(100.0, 0.0, 0.0);
+	glColor3f(0.0, 1.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex3f(0.0, 0.0, 0.0);
+	glVertex3f(0.0, 100.0, 0.0);
+	glColor3f(0.0, 0.0, 1.0);
+	glBegin(GL_LINES);
+	glVertex3f(0.0, 0.0, 0.0);
+	glVertex3f(0.0, 0.0, 100.0);
+	glEnd();
+
 	sun.Draw();
 	earth.Draw();
 	mars.Draw();
-	
+	shot.Draw();
 }
 
 void World::Timer() {
 		
-	earth.Move(earth.GetVel());
-	mars.Move(mars.GetVel());
+	earth.Move(earth.GetVel(), earth.GetD());
+	mars.Move(mars.GetVel(), mars.GetD());
+	shot.Move(earth.GetPos(), earth.GetAngle());
+	
 }

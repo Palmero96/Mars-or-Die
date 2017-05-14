@@ -10,10 +10,11 @@ class Planet : public Sphere{
 	
 public:
 
-	void Move(float);
+	void Move(float, float);
 	void SetVel(float);
 	float GetVel();
 	float GetD();
+	float GetAngle();
 
 	Planet();
 	~Planet();
