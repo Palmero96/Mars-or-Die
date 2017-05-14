@@ -31,6 +31,7 @@ May 13th 2017:
    - So far the Earth and Mars orbit the sun in circular orbits.
    - The orbits are drawn in the screen using GL_LINE_LOOP and 
         drawing multiple lines of these kind in a for loop.
+        
 May 14th 2017
    - Added Venus.
    - Implemented the 'Shot' class, which point is to reflect the trayectory 
