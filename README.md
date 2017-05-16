@@ -39,13 +39,13 @@ May 14th 2017
         when you press a certain key, Alt+Ctrl+Shift+N+F11, for instance.
         
 May 17th 2017
-   - 'Shot' Class deleted. Reason on updates description. You can go find it yourself, can't you?
+   - 'Shot' Class deleted. Reason on update's description. You can go find it yourself, can't you?
    - Reorganiced code. The planets apparentely orbit the same way they use
-        to did but the whole internal structure has benn changed. 
+        to did, but the whole internal structure has been changed. 
         Now everything should be kinda cleaner. The dependence now is the linear velocity,
         instead of the angular.
     - Introduced a 'Ship' Class that will represent, guess what... THE SHIP! CORRECT!
         Its dinamicaly created. Its movement depends on:
-         1- Earths velocity and position at the moment of the launch.
-         2- Suns gravital force, that diminishes with the distance to it's surface (cool, uh?).
+         1- Earth's velocity and position at the moment of the launch.
+         2- Sun's gravital force, that diminishes with the distance to it's surface (cool, uh?).
          3- Velocity given by its engines (thrust).
