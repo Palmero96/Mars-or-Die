@@ -1,38 +1,37 @@
 #include "World.h"
 
-World::World()	{}
+World::World()	{ship=0;}
 
 World::~World()	{}
 
 void World::Initialize() {
 
-	x_eye = 300;
+	srand(time(NULL));
+
+	x_eye = -250;
 	y_eye = 300;
-	z_eye = 300;
+	z_eye = 250;
 
 	sun.SetColor(1.0F, 1.0F, 0);
-	sun.SetPos(15.0, 5.0);
 	sun.SetRadius(19);
 
-	earth.SetInitPos(-110.0F, 20);
-	earth.SetVel(2*0.025);
-	earth.SetRadius(3.5);
 	earth.SetColor(0.0F, 0.0F, 1.0F);
-	earth.SetR_elip(earth.GetInitPos());
+	earth.SetRadius(3.5);
+	earth.SetOrbitRadius(110);
+	earth.SetVel(1.8);
+	earth.SetAngle(rand()%360);
 
-
-	mars.SetInitPos(138.0, 40);
-	mars.SetVel(1*0.025);
-	mars.SetRadius(2.3F);
-	mars.SetR_elip(mars.GetInitPos());
 	mars.SetColor(1.0F, 0.5F, 0);
+	mars.SetRadius(2.3F);
+	mars.SetOrbitRadius(160);
+	mars.SetVel(1);
+	mars.SetAngle(rand() % 360);
 
-	venus.SetInitPos(-50.0F, 20);
-	venus.SetVel(5 * 0.025);
-	venus.SetRadius(2);
 	venus.SetColor(0.8F, 0.5F, 1.0F);
-	venus.SetR_elip(venus.GetInitPos());
-
+	venus.SetRadius(2);
+	venus.SetOrbitRadius(30);
+	venus.SetVel(5);
+	venus.SetAngle(rand() % 360);
 
 }
 
@@ -49,24 +48,19 @@ void World::Draw() {
 	earth.Draw();
 	mars.Draw();
 	venus.Draw();
-	shot.Draw();
+	if(ship)ship->Draw();
 }
 
-void World::Timer() {
-		
-	earth.Move(earth.GetVel(), earth.GetD());
-	mars.Move(mars.GetVel(), mars.GetD());
-	venus.Move(venus.GetVel(), venus.GetD());
-	shot.Move(earth.GetPos(), mars.GetD(), earth.GetVel());
-	
+void World::Timer() 
+{		
+	if (ship)ship->Move();
+	earth.Move();
+	mars.Move();
+	venus.Move();
 	
 }
 
-void World::Key(unsigned char key, int x_t, int y_t){
+void World::Key(unsigned char key, int x_t, int y_t)
+{
 
-	if (key == 'd') {
-		shot.Move(earth.GetPos(), mars.GetD(), earth.GetVel());
-	
-		
-	}
 }
