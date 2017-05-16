@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	//Inicializar el gestor de ventanas GLUT
 	//y crear la ventana
 	glutInit(&argc, argv);
-	glutInitWindowSize(800, 600);
+	glutInitWindowSize(1200, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutCreateWindow("Mars Or Die");
 
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(40.0, 800 / 600.0f, 0.1, 400);
+	gluPerspective(40.0, 1200 / 600.0f, 0.1, 900);
 
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
@@ -54,6 +54,7 @@ void OnDraw(void)
 }
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
+	world.Key(key, x_t, y_t);
 	glutPostRedisplay();
 }
 

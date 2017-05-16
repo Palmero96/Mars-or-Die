@@ -3,6 +3,8 @@
 #include "Sphere.h"
 #include "Material.h"
 #include "Shot.h"
+#include "Ship.h"
+#include <time.h>
 #include <math.h>
 #include "glm\glm.hpp"
 
@@ -10,7 +12,8 @@
 class World
 {
 	Sphere sun;
-	Planet earth, mars, moon;
+	Ship *ship;
+	Planet earth, mars, venus;
 	Shot shot;
 	Material emitter;
 	float x_eye, y_eye, z_eye;
@@ -24,5 +27,6 @@ public:
 	void Initialize();
 	void Draw();
 	void Timer();
+	void Key(unsigned char key, int x_t, int y_t);
 };
 

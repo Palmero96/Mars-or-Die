@@ -1,19 +1,24 @@
 #pragma once
 #include "Sphere.h"
+#include <math.h>
 
 class Planet : public Sphere{
 
-	float spin;
-	float alpha;
-	float ang_vel;
-	float radius;
-	
+	float vel;
+	float alpha = atanf(position.y / position.x);
+	float omega = vel / orbit_radius;
+	float a_n = pow(vel, 2) / orbit_radius;
+	float a_t;
+
 public:
 
-	void Move(float, float);
+	void Move();
 	void SetVel(float);
-	float GetVel();
-	float GetD();
+	void SetOrbitRadius(float);
+	void SetAngle(float);
+	float GetModVel();
+	Vector2D GetVel();
+	float GetOrbitRadius();
 	float GetAngle();
 
 	Planet();

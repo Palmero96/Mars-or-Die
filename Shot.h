@@ -8,10 +8,9 @@ using namespace std;
 
 class Shot
 {
-
-	float base, height, angle;
-	float or_radius;
-	Vector2D position;
+	float alpha = atan(position0.x/position0.y);
+	float orbit_radius;
+	Vector2D position1, position0;
 
 public:
 
@@ -19,10 +18,7 @@ public:
 	~Shot();
 
 	void Draw();
-	float GetOrRad(float r_elip);
-	float GetAngle(float, float);
-	void Move(Vector2D, float);
-	
-
+	void Move();
+	void SetPos(Vector2D, float);
 };
 

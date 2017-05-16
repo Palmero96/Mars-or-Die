@@ -8,10 +8,11 @@ using namespace std;
 
 class Sphere
 {
+
 protected:
 
-	Vector2D position, position_init;
-	float radius, r_elip;
+	Vector2D position;
+	float radius, orbit_radius;
 	float red, green, blue;
 
 public:
@@ -22,9 +23,6 @@ public:
 	void Draw();
 	void SetColor(float r, float g, float b);
 	void SetRadius(float r);
-	void SetR_elip(Vector2D p);
-	void SetPos(float x, float y);
-	Vector2D GetInitPos();
 	Vector2D GetPos();
 };
 
