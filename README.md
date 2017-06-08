@@ -49,3 +49,12 @@ May 17th 2017
          1- Earth's velocity and position at the moment of the launch.
          2- Sun's gravital force, that diminishes with the distance to it's surface (cool, uh?).
          3- Velocity given by its engines (thrust).
+
+June 8th 2017
+   - Created the basic class 'Object'.
+   - Created the basic class 'Moving Object', that inherits physical properties from Object.
+   - Sphere, Planet and Ship rely now on these basic classes, making each of them 
+        responsible of their own information.
+   - The ship still makes weird stuff wheen it's launched.
+   
+    
