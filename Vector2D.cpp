@@ -19,14 +19,23 @@ Vector2D Vector2D::operator+(float f) {
 	return *this;
 }
 
-Vector2D Vector2D::operator=(Vector2D u) {
+Vector2D Vector2D::operator*(float a)
+{
+	Vector2D v;
+	v.x = x * a;
+	v.y = y * a;
+	return v;
+}
 
+Vector2D Vector2D::operator=(Vector2D u) 
+{	
 	x = u.x;
 	y = u.y;
 	return *this;
 }
-Vector2D Vector2D::operator-(Vector2D u){
 
+Vector2D Vector2D::operator-(Vector2D u)
+{
 	Vector2D v;
 	v.x = x - u.x;
 	v.y = y - u.y;

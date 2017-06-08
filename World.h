@@ -1,7 +1,6 @@
 #pragma	once
 #include "Planet.h"
 #include "Sphere.h"
-#include "Material.h"
 #include "Ship.h"
 #include <time.h>
 #include <math.h>
@@ -13,7 +12,7 @@ class World
 	Sphere sun;
 	Ship *ship;
 	Planet earth, mars, venus;
-	Material emitter;
+	Vector2D z;
 	float x_eye, y_eye, z_eye;
 	float theta, d;
 

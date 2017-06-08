@@ -13,6 +13,7 @@ public:
 	Vector2D operator+(float f);
 	Vector2D operator-(Vector2D u);
 	Vector2D operator=(Vector2D u);
+	Vector2D operator*(float a);
 	float operator*(Vector2D u);
 
 	float mod();

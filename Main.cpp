@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(40.0, 1200 / 600.0f, 0.1, 900);
+	gluPerspective(60.0, 1200 / 600.0f, 0.1, 900);
 
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	world.Initialize();
 
 	glutMainLoop();
-
+	world.~World();
 	return 0;
 }
 

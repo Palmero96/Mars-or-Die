@@ -3,26 +3,26 @@
 #include "Vector2D.h"
 #include "glut.h"
 #include <math.h>
+#include "Object.h"
 
 using namespace std;
 
-class Sphere
+class Sphere : virtual public Object
 {
-
 protected:
 
-	Vector2D position;
-	float radius, orbit_radius;
-	float red, green, blue;
+	float radius;
 
 public:
 		
 	Sphere();
 	~Sphere();
 
-	void Draw();
+	virtual void Draw();
+
 	void SetColor(float r, float g, float b);
-	void SetRadius(float r);
-	Vector2D GetPos();
+
+	void SetRadius(float);
+	float GetRadius();
 };
 
