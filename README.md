@@ -54,7 +54,7 @@ June 8th 2017
    - Created the basic class 'Object'.
    - Created the basic class 'Moving Object', that inherits physical properties from Object.
    - Sphere, Planet and Ship rely now on these basic classes, making each of them 
-        responsible of their own information.
+        responsible for their own information.
    - The ship still makes weird stuff wheen it's launched.
    
     
