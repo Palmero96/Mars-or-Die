@@ -1,5 +1,5 @@
 #include "World.h"
-
+int i = 0;
 World::World() 
 { 
 	ship = 0; 
@@ -65,10 +65,25 @@ void World::Timer()
 }
 
 void World::Key(unsigned char key, int x_t, int y_t)
-{	
-	if (key == 'l')
+{
+	if (key == ' ')
 	{
-		ship = new Ship;
-		ship->SetPos(earth.GetPos());
+		if (i == 0)
+		{
+			i = 1;
+			ship = new Ship;
+			ship->SetPos(earth.GetPos());
+			ship->SetOmega(earth.GetOmega());
+			earth.SetOmega(1.6 * 0.1);
+			mars.SetOmega(0.8 * 0.1);
+			venus.SetOmega(4.8 * 0.1);
+		}
+		else if (i == 1)
+		{
+			i = 0;
+			earth.SetOmega(1.6);
+			mars.SetOmega(0.8);
+			venus.SetOmega(4.8);
+		}
 	}
 }

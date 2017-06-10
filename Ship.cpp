@@ -3,9 +3,10 @@
 Ship::Ship()	
 {
 	radius = 1;
-	acc.y = 0;
+	vel.x = 0;
+	vel.y = 0;
 	acc.x = 0;
-	t = 0.05;
+	acc.y = 0;
 }
 
 Ship::~Ship()	{}
@@ -22,17 +23,7 @@ void Ship::Draw()
 
 void Ship::Move()
 {
-	position = position + vel * t + acc * pow(t, 2);
-	vel = vel + acc * t;
-}
-
-void Ship::SetPos(Vector2D pos)
-{
-	position = pos;
-	
-	vel.y =  (95000/ (pos.x * pos.x + pos.y * pos.y));
-	vel.x =  (-(pos.y / pos.x) * (95000/ (pos.x * pos.x + pos.y * pos.y)));
-	
-//	vel = vel + pos;
-
+	vel.x = position.x * 0.5;
+	vel.y = position.y * 0.5;
+	MovingObject::Move();
 }
