@@ -1,5 +1,6 @@
 #pragma	once
 #include "Planet.h"
+#include "Interaction.h"
 #include "Sphere.h"
 #include "Ship.h"
 #include <time.h>
@@ -11,7 +12,7 @@ class World
 {
 	Sphere sun;
 	Ship *ship;
-	Planet earth, mars, venus;
+	Planet earth, mars, venus, mercury;
 	Vector2 z;
 	float x_eye, y_eye, z_eye;
 	float theta, d;
