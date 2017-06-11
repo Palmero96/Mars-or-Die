@@ -57,4 +57,12 @@ June 8th 2017
         responsible for their own information.
    - The ship still makes weird stuff wheen it's launched.
    
-    
+June 11th 2017
+   - Created the class 'Interaction' that will handle the interaction between the ship and 
+        Mars, if they get close enough.
+   - The ship is launched with a radial trayectory by pressing the space bar:
+       -Once it's pressed, the ship is launched and the planets slow down, as a way to 
+        approximate how the ships and planets velocity (It's completely and absolutely 
+        inaccurate, but it looks awesome)
+       -If you press again the planets get back their velocity and you can shoot again.
+        
