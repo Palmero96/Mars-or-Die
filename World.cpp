@@ -59,7 +59,7 @@ void World::Draw()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	
-//	sun.Draw();
+	sun.Draw();
 	mercury.Draw();
 	earth.Draw();
 	mars.Draw();
