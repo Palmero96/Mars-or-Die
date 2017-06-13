@@ -13,9 +13,11 @@ class World
 	Sphere sun;
 	Ship *ship;
 	Planet earth, mars, venus, mercury;
+	Planet moon;
 	Vector2 z;
 	float x_eye, y_eye, z_eye;
 	float theta, d;
+	bool sloMo;
 
 public:
 
