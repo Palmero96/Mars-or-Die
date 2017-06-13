@@ -65,4 +65,7 @@ June 11th 2017
         approximate how the ships and planets velocity (It's completely and absolutely 
         inaccurate, but it looks awesome)
        -If you press again the planets get back their velocity and you can shoot again.
-        
+       
+June 13th 2017
+    - The ship finally moves properly. Now, once the ship and Mars are close enough, our 
+    shuttle begins an orbital movement around Mars and so, this phase is FINISHED!
