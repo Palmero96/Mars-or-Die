@@ -12,7 +12,12 @@ Object::~Object()
 }
 
 
-Vector2D Object::GetPos()
+Vector2 Object::GetPos()
 {
 	return position;
+}
+
+void Object::SetPos(Vector2 pos)
+{
+	position = pos;
 }

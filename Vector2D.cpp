@@ -1,63 +1,49 @@
 #include "Vector2D.h"
 
-Vector2D::Vector2D()	{}
+Vector2::Vector2()	{}
 
-Vector2D::~Vector2D()	{}
-
-Vector2D Vector2D::operator+(Vector2D u){
-
-	Vector2D v;
-	v.x = x + u.x;
-	v.y = y + u.y;
-	return v;
+Vector2::Vector2(float u_x, float u_y)
+{
+	x = u_x;
+	y = u_y;
 }
 
-Vector2D Vector2D::operator+(float f) {
+Vector2::~Vector2()	{}
+
+Vector2 Vector2::operator+(Vector2 u){
+
+	return Vector2(x + u.x, y + u.y);
+}
+
+Vector2 Vector2::operator+(float f) {
 
 	x += f;
 	y += f;
 	return *this;
 }
 
-Vector2D Vector2D::operator*(float a)
+Vector2 Vector2::operator*(float a)
 {
-	Vector2D v;
+	Vector2 v;
 	v.x = x * a;
 	v.y = y * a;
 	return v;
 }
 
-Vector2D Vector2D::operator=(Vector2D u) 
+Vector2 Vector2::operator=(Vector2 u) 
 {	
 	x = u.x;
 	y = u.y;
 	return *this;
 }
 
-Vector2D Vector2D::operator-(Vector2D u)
+Vector2 Vector2::operator-(Vector2 u)
 {
-	Vector2D v;
-	v.x = x - u.x;
-	v.y = y - u.y;
-	return v;
+	return Vector2(x - u.x, y - u.y);
 }
 
-float Vector2D::operator*(Vector2D u) {
+float Vector2::operator*(Vector2 u) {
 
 	return  (x * u.x + y * u.x);
 
-}
-
-float Vector2D::mod() {
-	return sqrtf(pow(x, 2) + pow(y, 2));
-}
-
-float Vector2D::angle(Vector2D u) {
-
-	float w = x * u.x + y * u.x;
-	float a = mod();
-	float b = u.mod();
-	float c = cosf(w / (a*b));
-
-	return acosf(c);
 }

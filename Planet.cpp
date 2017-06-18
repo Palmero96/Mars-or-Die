@@ -18,6 +18,11 @@ void Planet::Draw()
 	}
 
 	glEnd();
-
 }
 
+void Planet::Move()
+{
+	alpha += omega * 0.025;
+	position.x = orbit_radius * cosf(alpha);
+	position.y = orbit_radius * sinf(alpha);
+}

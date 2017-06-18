@@ -6,13 +6,14 @@ class Object
 protected:
 
 	float red, green, blue;
-	Vector2D position;
+	Vector2 position;
 
 public:
 
 	Object();
 	virtual ~Object();
 
-	Vector2D GetPos();
+	Vector2 GetPos();
+	void SetPos(Vector2);
 };
 

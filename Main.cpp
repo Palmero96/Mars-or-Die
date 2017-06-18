@@ -1,8 +1,8 @@
 #include <iostream>
 #include "glut.h"
-#include "World.h"
+#include "Coordinator.h"
 
-World world;
+Coordinator coord;
 
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion
@@ -24,17 +24,14 @@ int main(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(60.0, 1200 / 600.0f, 0.1, 900);
+	gluPerspective(60.0, 1200 / 600.0f, 0.1, 1200);
 
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
 	glutKeyboardFunc(OnKeyboardDown);
 
-	world.Initialize();
-
 	glutMainLoop();
-	world.~World();
 	return 0;
 }
 
@@ -47,20 +44,20 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);	//Para definir el punto de vista
 	glLoadIdentity();
 
-	world.Draw();
+	coord.Draw();
 
 	glutSwapBuffers();
 
 }
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
-	world.Key(key, x_t, y_t);
+	coord.Key(key, x_t, y_t);
 	glutPostRedisplay();
 }
 
 void OnTimer(int value)
 {
-	world.Timer();
+	coord.Timer();
 
 	glutTimerFunc(25, OnTimer, 0);
 	glutPostRedisplay();

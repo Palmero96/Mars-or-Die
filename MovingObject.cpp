@@ -12,10 +12,9 @@ MovingObject::~MovingObject()	{}
 
 void MovingObject::Move()
 {
-	alpha += omega * 0.025;
-	position.x = orbit_radius * cosf(alpha);
-	position.y = orbit_radius * sinf(alpha);
-
+	float t = 0.025;
+	position = position + vel * t + acc * pow(t, 2);
+	vel = vel + acc * t;
 }
 
 float MovingObject::GetAngle()
@@ -46,4 +45,9 @@ float MovingObject::GetOmega()
 void MovingObject::SetOmega(float o)
 {
 	omega = o;
+}
+
+void MovingObject::SetAcc(Vector2 a)
+{
+	acc = a;
 }

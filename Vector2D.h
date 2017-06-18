@@ -1,22 +1,20 @@
 #pragma once
 #include <math.h>
 
-class Vector2D
+class Vector2
 {
 public:
 	float x, y;
 	
-	Vector2D();
-	~Vector2D();
+	Vector2();
+	Vector2(float x, float y);
+	~Vector2();
 
-	Vector2D operator+(Vector2D u);
-	Vector2D operator+(float f);
-	Vector2D operator-(Vector2D u);
-	Vector2D operator=(Vector2D u);
-	Vector2D operator*(float a);
-	float operator*(Vector2D u);
-
-	float mod();
-	float angle(Vector2D);
+	Vector2 operator+(Vector2);
+	Vector2 operator+(float f);
+	Vector2 operator-(Vector2);
+	Vector2 operator=(Vector2);
+	Vector2 operator*(float a);
+	float operator*(Vector2 u);
 };
 

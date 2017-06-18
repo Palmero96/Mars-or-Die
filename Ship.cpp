@@ -8,6 +8,7 @@ Ship::Ship()
 	vel.y = 0;
 	acc.x = 0;
 	acc.y = 0;
+	t = 0.5;
 	orbit = false;
 }
 
@@ -15,9 +16,10 @@ Ship::~Ship()	{}
 
 void Ship::Move()
 {
+
 	acc = m - position;
-	vel.x = position.x * 0.5;
-	vel.y = position.y * 0.5;
+	vel.x = position.x * t;
+	vel.y = position.y * t;
 	MovingObject::Move();
 }
 
@@ -63,4 +65,14 @@ void Ship::Draw()
 		glutSolidSphere(radius, 15, 15);
 		glPopMatrix();
 	}
+}
+
+void Ship::SetT(float a)
+{
+	t = a;
+}
+
+float Ship::GetT()
+{
+	return t;
 }

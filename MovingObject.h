@@ -7,6 +7,7 @@ class MovingObject : virtual public Object
 protected:
 
 	float alpha, omega, orbit_radius;
+	Vector2 vel, acc;
 
 public:
 
@@ -22,6 +23,8 @@ public:
 	float GetOmega();
 	void SetOmega(float);
 
-	void Move();
+	void SetAcc(Vector2);
+
+	virtual void Move();
 };
 

@@ -11,5 +11,6 @@ public:
 	~Planet();
 
 	void Draw();
+	void Move();
 };
 

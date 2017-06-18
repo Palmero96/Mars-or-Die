@@ -14,12 +14,15 @@ class Ship : public MovingObject
 public:
 
 	Ship();
-	~Ship();
+	virtual ~Ship();
 
 	void Draw();
 	void Move();
 	void GetAV(Vector2);
 	void OrbitAround(Vector2);
+
+	void SetT(float t);
+	float GetT();
 
 	void SetOrbit(bool);
 	bool GetOrbit();
