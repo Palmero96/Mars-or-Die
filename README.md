@@ -69,3 +69,10 @@ June 11th 2017
 June 13th 2017
    - The ship finally moves properly. Now, once the ship and Mars are close enough, our 
     shuttle begins an orbital movement around Mars and so, this phase is FINISHED!
+    
+June 18th 2017
+    - There's a pretty awesome start menu
+    - The structure of the code has been changed: Now the class World, which manages the first 
+        phase of the game, is managed by the class Coordinator, which will handle all the 
+        different phases and when to switch from one to the next one.
+    - Also there's music ( Star Wars score of course)
