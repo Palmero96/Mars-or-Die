@@ -1,15 +1,12 @@
 #pragma once
-#include "glut.h"
 #include "Phase.h"
-class Phase2 : public Phase
-{
-	float x_eye, y_eye, z_eye;
 
+class Pause : public Phase
+{
 public:
 
-
-	Phase2();
-	virtual ~Phase2();
+	Pause();
+	virtual ~Pause();
 
 	void Draw();
 	void Timer();

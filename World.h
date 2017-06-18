@@ -5,10 +5,11 @@
 #include "Ship.h"
 #include <time.h>
 #include <math.h>
+#include "Phase.h"
 #include "ETSIDI.h"
 
 
-class World
+class World: public Phase
 {
 	Sphere sun;
 	Ship *ship;

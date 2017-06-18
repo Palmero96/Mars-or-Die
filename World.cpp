@@ -102,8 +102,8 @@ void World::Timer()
 		{
 			ship->OrbitAround(mars.GetPos()); // with this condition on you are able to pass to the next phase
 			success = true;
-			x_look = earth.GetPos().x;
-			z_look = earth.GetPos().y;
+			x_look = mars.GetPos().x;
+			z_look = mars.GetPos().y;
 			y_look = 0;
 		}
 		else
@@ -122,11 +122,11 @@ void World::CloseUp()
 
 	if(y_eye > 9)
 		y_eye -= y_eye * t;
-	if( z_eye > earth.GetOrbitRadius() + 10)
+	if( z_eye > mars.GetOrbitRadius() + 10)
 	{
 		z_eye --;
 	}
-	if (x_eye > earth.GetOrbitRadius() + 10)
+	if (x_eye > mars.GetOrbitRadius() + 10)
 	{
 		x_eye --;
 	}

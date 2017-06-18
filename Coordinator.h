@@ -1,17 +1,19 @@
 #pragma once
 #include "World.h"
 #include "Phase2.h"
+#include "Pause.h"
+#include "Home.h"
 
 class Coordinator
 {
+	Home home;
+	Pause pause;
 	World world;
 	Phase2 phase2;
-	enum State{HOME, FIRST_PHASE, FIRST_PHASE_DONE, SECOND_PHASE,GAME_OVER};
+	enum State{HOME, PAUSE, FIRST_PHASE, FIRST_PHASE_DONE, SECOND_PHASE,GAME_OVER};
 	State state;
 
-	int text_x;
-	bool text_leave;
-	bool text_gone;
+	bool p;   // setting the pause state with only one key
 
 public:
 
