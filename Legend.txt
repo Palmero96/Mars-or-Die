@@ -1,0 +1,26 @@
+
+
+All along the code there are different sections with an indicator such as "HOME_TEXT_MOVEMENT"
+
+They all refer to code lines that might not be intuitive to know what are they ment to do,
+so they will be completely explained in this file.
+
+----------------------------------------------------------------------------------------------------------------------
+
+- HOME_TEXT_MOVEMENT
+    - Once you press 'a' on the Home window of the game, you'll notice the 'MARS or Die'text
+    moves to the right and dissapears. This is how it's done:
+    - There are two boolean variables that belong to the Coordinator class, bool text_gone and 
+    bool text_leave, both initialized false in the constructor. 
+      Once you press 'a', text_leave is set to true, so when Coordinator::Draw() is called again,
+    it will be executed the code inside if(text_leave), that will increment text_x (the varible 
+    that controls the text x coordinate).
+      Because text_x is initialized as -10, once it reaches 25 (Coordinator::Draw() will be caled 35
+    times until this happens) the code inside if(text_x >= 25) will be  executed. 
+      This code will set text_leave to false, so the text stops mooving (it wouldn't matter to leave 
+    it true), initialices the first phase, World, and sets text_gone to true, that will execute
+    state = FIRST_PHASE.
+    
+      Not much complicated, actually.
+   
+    
