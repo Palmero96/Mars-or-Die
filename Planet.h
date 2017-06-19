@@ -10,7 +10,8 @@ public:
 	Planet();
 	~Planet();
 
-	void Draw();
+	void Draw(const char *c);
 	void Move();
+	void SetIni(float ir, float ig, float ib, float irad, float iror, float plan);
 };
 

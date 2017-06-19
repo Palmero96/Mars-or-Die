@@ -16,6 +16,11 @@ void Coordinator::Draw()
 		if (home.GetText_Gone()) world.Initialize();
 		break;
 
+	case PAUSE:
+
+		pause.Draw();
+		break;
+
 	case FIRST_PHASE: 
 
 		world.Draw();

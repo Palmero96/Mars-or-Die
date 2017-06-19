@@ -27,32 +27,17 @@ void World::Initialize() {
 	y_look = -90;
 	z_look = 30;
 
-	sun.SetColor(1.0F, 1.0F, 0);
+	//Inicializador del sol
+	sun.SetColor(1.0F, 1.0F, 1.0F);
 	sun.SetRadius(20);
-
-	earth.SetColor(0.0F, 0.0F, 1.0F);
-	earth.SetRadius(4.5);
-	earth.SetOrbitRadius(210);
-	earth.SetOmega(EARTH);
-	earth.SetAngle(rand()%360); // sets a random value between 0 and 359 for the first angle
-
-	mars.SetColor(1.0F, 0.5F, 0);
-	mars.SetRadius(3);
-	mars.SetOrbitRadius(350);
-	mars.SetOmega(MARS);
-	mars.SetAngle(rand() % 360);
-
-	mercury.SetColor(0.5F, 0.0F, 0.5F);
-	mercury.SetRadius(2);
-	mercury.SetOrbitRadius(30);
-	mercury.SetOmega(4.8);
-	mercury.SetAngle(rand() % 360);
-
-	venus.SetColor(0.8F, 0.5F, 1.0F);
-	venus.SetRadius(2.8);
-	venus.SetOrbitRadius(60);
-	venus.SetOmega(3.9);
-	venus.SetAngle(rand() % 360);
+	//Se inicializa la tierra
+	earth.SetIni(1.0F, 1.0F, 1.0F, 6, 210, EARTH);//4.5
+													//Se inicializa marte
+	mars.SetIni(1.0F, 1.0F, 1.0F, 5.5, 350, MARS);//3
+												//Se inicializa mercurio
+	mercury.SetIni(1.0F, 1.0F, 1.0F, 3.5, 30, MERCURY);//2
+													 //Se inicializa venus
+	venus.SetIni(1.0F, 1.0F, 1.0F, 2, 60, VENUS);//2.8
 
 	ETSIDI::playMusica("music/home_song.mp3", true);
 
@@ -65,6 +50,16 @@ void World::Draw()
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
 	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(0, 1);  glVertex3f(-800, -50, 500);
+	glTexCoord2d(1, 1);  glVertex3f(-800, -50, -500);
+	glTexCoord2d(1, 0);  glVertex3f(-200, -50, -500);
+	glTexCoord2d(0, 0);  glVertex3f(-200, -50, 500);
+
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
@@ -74,19 +69,28 @@ void World::Draw()
 	glTexCoord2d(1, 0);  glVertex3f(300, -50, -500);
 	glTexCoord2d(0, 0);  glVertex3f(300, -50, 500);
 
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(0, 1);  glVertex3f(200, -50, 500);
+	glTexCoord2d(1, 1);  glVertex3f(200, -50, -500);
+	glTexCoord2d(1, 0);  glVertex3f(800, -50, -500);
+	glTexCoord2d(0, 0);  glVertex3f(800, -50, 500);
+
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
-	sun.Draw();
-	mercury.Draw();
-	earth.Draw();
-	mars.Draw();
-	venus.Draw();
-	
+
+	sun.Draw("textures/Sun.png");
+	mercury.Draw("textures/Mercury.png");
+	earth.Draw("textures/Tierra.png");
+	mars.Draw("textures/Mars.png");
+	venus.Draw("textures/Venus.png");
+
 	if (ship)
 		ship->Draw();
 
