@@ -22,17 +22,25 @@ void Sphere::Draw(const char *c)
 	glColor4f(red, green, blue, 1.0);
 	glutSolidSphere(radius, 40, 40);
 	glPopMatrix();*/
+
 	glColor4f(red, green, blue, 1.0);
+
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(c).id);
+
 	GLUquadric  *quadObj;
 	quadObj = gluNewQuadric();
 	gluQuadricTexture(quadObj, GL_TRUE);
+
 	glDisable(GL_LIGHTING);
+
 	glPushMatrix();
 	glTranslatef(position.x, 0, position.y);
 	gluSphere(quadObj, radius, 40, 40);
 	glPopMatrix();
+
+	glEnd();
+
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 

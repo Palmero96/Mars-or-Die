@@ -2,18 +2,22 @@
 
 Coordinator::Coordinator()
 {
-	state = HOME;
+	phase = HOME;
 	p = false;
 }
 
 void Coordinator::Draw()
 {
-	switch (state)
+	switch (phase)
 	{
 	case HOME:
 
 		home.Draw();
-		if (home.GetText_Gone()) world.Initialize();
+		if (home.GetText_Gone())
+		{
+			world.Initialize();
+			phase = FIRST_PHASE;
+		}
 		break;
 
 	case PAUSE:
@@ -37,27 +41,59 @@ void Coordinator::Draw()
 
 void Coordinator::Key(unsigned char key, int x_t, int y_t)
 {
-	if (state == HOME)
+	if (phase == HOME)
 		home.Key(key, x_t, y_t);
-	
-	if (state == FIRST_PHASE)
-		world.Key(key, x_t, y_t);
 
-	if (key == 'p')
-		state = PAUSE;
+	if (phase == FIRST_PHASE)
+	{
+		world.Key(key, x_t, y_t);
+	}
+
+	if (key == 'c')
+	{
+		if (phase == FIRST_PHASE)
+		{
+			phase2.Initialize();
+			phase = SECOND_PHASE;
+		}
+
+	}
+
+	if (key == 'p')		//	PAUSE
+	{
+		if (!p)
+		{
+			prevState = phase;
+			phase = PAUSE;
+			p = true;
+		}
+		else
+		{
+			phase = prevState;
+			p = false;
+		}
+
+	}
+	
 }
 
 void Coordinator::Timer()
 {
-	if (state == FIRST_PHASE)
+	switch(phase)
 	{
+	case FIRST_PHASE:
+	
 		if (world.GetSuccess())
 			world.CloseUp();
 		world.Timer();
+		break;
+
+	case SECOND_PHASE:
+
+		phase2.Timer();
+		break;
 	}
 
-	if (home.GetText_Gone())
-		state = FIRST_PHASE;
 }
 
 Coordinator::~Coordinator()

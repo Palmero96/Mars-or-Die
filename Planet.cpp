@@ -16,7 +16,6 @@ void Planet::Draw(const char *c)
 		glVertex3f(orbit_radius*cos(i), 0, orbit_radius*sin(i));
 		glVertex3f(orbit_radius*cos(i + 0.01), 0, orbit_radius*sin(i + 0.01));
 	}
-
 	glEnd();
 }
 

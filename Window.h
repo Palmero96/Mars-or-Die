@@ -1,13 +1,16 @@
 #pragma once
 #include <string>
+#include "glut.h"
+#include "ETSIDI.h"
+
 class Window
 {
-	char *text;
+	char* text;
 	int x, y;
 
 public:
-	Window(int x, int y, char*);
 	Window();
+	void Draw(float, float, float);
 	~Window();
 };
 

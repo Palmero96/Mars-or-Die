@@ -9,6 +9,7 @@ using ETSIDI::getTexture;
 World::World() 
 { 
 	ship = 0; 
+	ang = 0;
 	success = false;
 }
 
@@ -31,9 +32,9 @@ void World::Initialize() {
 	sun.SetColor(1.0F, 1.0F, 1.0F);
 	sun.SetRadius(20);
 	//Se inicializa la tierra
-	earth.SetIni(1.0F, 1.0F, 1.0F, 6, 210, EARTH);//4.5
+	earth.SetIni(1.0F, 1.0F, 1.0F, 6, 200, EARTH);//4.5
 													//Se inicializa marte
-	mars.SetIni(1.0F, 1.0F, 1.0F, 5.5, 350, MARS);//3
+	mars.SetIni(1.0F, 1.0F, 1.0F, 5.5, 320, MARS);//3
 												//Se inicializa mercurio
 	mercury.SetIni(1.0F, 1.0F, 1.0F, 3.5, 30, MERCURY);//2
 													 //Se inicializa venus
@@ -77,7 +78,7 @@ void World::Draw()
 	glTexCoord2d(1, 1);  glVertex3f(200, -50, -500);
 	glTexCoord2d(1, 0);  glVertex3f(800, -50, -500);
 	glTexCoord2d(0, 0);  glVertex3f(800, -50, 500);
-
+	
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
@@ -90,10 +91,47 @@ void World::Draw()
 	earth.Draw("textures/Tierra.png");
 	mars.Draw("textures/Mars.png");
 	venus.Draw("textures/Venus.png");
-
+	if (success)
+	{
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
+		ETSIDI::printxy("Congrats, you successfuly calculated", -10, 10);
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
+		ETSIDI::printxy(" the journey's trayectory and time launch", -10, 7);
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
+		ETSIDI::printxy("Press 'c' to get the ship to Mars trough space", -10, 5);
+	}
 	if (ship)
 		ship->Draw();
 
+	//Vector2 look = mars.GetPos() - Vector2(x_eye, y_eye);
+	//ang = look.angle(Vector2(1, 0));
+
+	//if (y_eye < 11)
+	//{
+	//	glPushMatrix();
+	//	glTranslatef(x_eye, y_eye, z_eye);
+	//
+	//	/*
+	//	glEnable(GL_TEXTURE_2D);
+	//	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/m.png").id);
+	//	glDisable(GL_LIGHTING);
+	//	glBegin(GL_POLYGON);
+
+	//	glColor3f(1, 1, 1);
+	//	glTexCoord2d(0, 0);  glVertex3f(-25, 20, 0);
+	//	glTexCoord2d(1,0);  glVertex3f(25, 20, 0);
+	//	glTexCoord2d(1,1);  glVertex3f(25, -10, 0);
+	//	glTexCoord2d(0,1);  glVertex3f(-25, -10, 0);
+	//	*/
+
+	//	glColor4f(1.0, 1.0, 1.0, 1.0);
+	//	glutSolidSphere(5, 40, 40);
+	//	glPopMatrix();
+	//	glEnd();
+	//}
 }
 
 void World::Timer() 
@@ -109,6 +147,10 @@ void World::Timer()
 			x_look = mars.GetPos().x;
 			z_look = mars.GetPos().y;
 			y_look = 0;
+			earth.SetOmega(EARTH);
+			mars.SetOmega(MARS);
+			mercury.SetOmega(MERCURY);
+			venus.SetOmega(VENUS);
 		}
 		else
 			ship->Move();
@@ -167,5 +209,24 @@ void World::Key(unsigned char key, int x_t, int y_t)
 			venus.SetOmega(VENUS);
 			ship->SetT(2.5);
 		}
+		
+	}		
+}
+
+float World::GetEye(char c)
+{
+	switch (c)
+	{
+	case 'x':
+		return x_eye;
+		break;
+	case 'y':
+		return y_eye;
+		break;
+	case 'z':
+		return z_eye;
+		break;
+	default:
+		break;
 	}
 }

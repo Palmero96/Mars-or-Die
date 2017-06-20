@@ -47,3 +47,10 @@ float Vector2::operator*(Vector2 u) {
 	return  (x * u.x + y * u.x);
 
 }
+
+float Vector2::angle(Vector2 v)
+{
+	float num = x * v.x + y * v.y;
+	float den = sqrtf(x * x + y * y) * sqrtf(v.x * v.x + v.y + v.y);
+	return (num / den);
+}

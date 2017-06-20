@@ -15,6 +15,8 @@ public:
 	Vector2 operator-(Vector2);
 	Vector2 operator=(Vector2);
 	Vector2 operator*(float a);
+
 	float operator*(Vector2 u);
+	float angle(Vector2);
 };
 
