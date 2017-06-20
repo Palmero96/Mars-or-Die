@@ -76,3 +76,8 @@ June 18th 2017
         phase of the game, is managed by the class Coordinator, which will handle all the 
         different phases and when to switch from one to the next one.
    - Also there's music ( Star Wars score of course)
+   
+June 20th 2017
+   - There is a Pause phase available pressing 'p' at any given moment
+   - Textures applyed to planets and sun
+   - More code stuff
