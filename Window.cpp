@@ -2,24 +2,44 @@
 
 
 
-void Window::Draw(float x, float y, float z)
+void Window::Draw(float x, float y, int n) // X position, Y position, Kind of window
 {
 	glPushMatrix();
-	glTranslatef(x, y , z);
-	/*glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/m.png").id);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
+	glTranslatef(0, 0, -1);
 
-	glColor3f(1, 1, 1);
-	glTexCoord2d(0, 0);  glVertex3f(-25, 20, 0);
-	glTexCoord2d(1,0);  glVertex3f(25, 20, 0);
-	glTexCoord2d(1,1);  glVertex3f(25, -10, 0);
-	glTexCoord2d(0,1);  glVertex3f(-25, -10, 0);*/
-	glColor4f(1.0,1.0,1.0, 1.0);
-	glutSolidSphere(5, 40, 40);
+	glEnable(GL_TEXTURE_2D);
+
+	switch (n)
+	{
+	case 0:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/houston.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, y - 0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, y - 0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
+		break;
+
+	case 1:
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/fuel.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, -0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, -0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, -0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, -0.55, 0);// top left
+		break;
+	}
+
+	glEnd();
+	glEnable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+
 	glPopMatrix();
-	glEnd(); 
+	glEnd();
 }
 
 

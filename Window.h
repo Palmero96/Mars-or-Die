@@ -10,7 +10,7 @@ class Window
 
 public:
 	Window();
-	void Draw(float, float, float);
+	void Draw(float, float, int);
 	~Window();
 };
 

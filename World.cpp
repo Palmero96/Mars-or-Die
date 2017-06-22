@@ -46,15 +46,22 @@ void World::Initialize() {
 
 void World::Draw() 
 {
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+	if (y_eye < 15)  window.Draw(0, 0, 0);
+
 	gluLookAt(x_eye, y_eye, z_eye,  // posicion del ojo
 		x_look, y_look, z_look,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
 	glEnable(GL_TEXTURE_2D);
-
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
+
 	glColor3f(1, 1, 1);
 	glTexCoord2d(0, 1);  glVertex3f(-800, -50, 500);
 	glTexCoord2d(1, 1);  glVertex3f(-800, -50, -500);
@@ -91,47 +98,9 @@ void World::Draw()
 	earth.Draw("textures/Tierra.png");
 	mars.Draw("textures/Mars.png");
 	venus.Draw("textures/Venus.png");
-	if (success)
-	{
-		ETSIDI::setTextColor(1, 1, 1);
-		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
-		ETSIDI::printxy("Congrats, you successfuly calculated", -10, 10);
-		ETSIDI::setTextColor(1, 1, 1);
-		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
-		ETSIDI::printxy(" the journey's trayectory and time launch", -10, 7);
-		ETSIDI::setTextColor(1, 1, 1);
-		ETSIDI::setFont("fonts/nasalization-rg.ttf", 15);
-		ETSIDI::printxy("Press 'c' to get the ship to Mars trough space", -10, 5);
-	}
+
 	if (ship)
 		ship->Draw();
-
-	//Vector2 look = mars.GetPos() - Vector2(x_eye, y_eye);
-	//ang = look.angle(Vector2(1, 0));
-
-	//if (y_eye < 11)
-	//{
-	//	glPushMatrix();
-	//	glTranslatef(x_eye, y_eye, z_eye);
-	//
-	//	/*
-	//	glEnable(GL_TEXTURE_2D);
-	//	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/m.png").id);
-	//	glDisable(GL_LIGHTING);
-	//	glBegin(GL_POLYGON);
-
-	//	glColor3f(1, 1, 1);
-	//	glTexCoord2d(0, 0);  glVertex3f(-25, 20, 0);
-	//	glTexCoord2d(1,0);  glVertex3f(25, 20, 0);
-	//	glTexCoord2d(1,1);  glVertex3f(25, -10, 0);
-	//	glTexCoord2d(0,1);  glVertex3f(-25, -10, 0);
-	//	*/
-
-	//	glColor4f(1.0, 1.0, 1.0, 1.0);
-	//	glutSolidSphere(5, 40, 40);
-	//	glPopMatrix();
-	//	glEnd();
-	//}
 }
 
 void World::Timer() 
@@ -169,14 +138,7 @@ void World::CloseUp()
 	if(y_eye > 9)
 		y_eye -= y_eye * t;
 	if( z_eye > mars.GetOrbitRadius() + 10)
-	{
 		z_eye --;
-	}
-	if (x_eye > mars.GetOrbitRadius() + 10)
-	{
-		x_eye --;
-	}
-
 }
 
 bool World::GetSuccess()
