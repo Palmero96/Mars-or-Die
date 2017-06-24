@@ -2,8 +2,9 @@
 
 
 
-Capsule::Capsule()
+Capsule::Capsule(const char *name)
 {
+	fuel = 3;
 	life = 100;
 
 	acc.x = 0;
@@ -17,8 +18,14 @@ Capsule::Capsule()
 
 	g.x = 0;
 	g.y = 0;
+
+	image = new ETSIDI::Sprite(name, position.x, position.y,20,20);
 }
 
+
+Capsule::Capsule()
+{
+}
 
 Capsule::~Capsule()
 {
@@ -26,12 +33,8 @@ Capsule::~Capsule()
 
 void Capsule::Draw()
 {
-	glPushMatrix();
-	glTranslatef(position.x, position.y, 0);
-	glColor3f(1, 1, 1);
-	glutSolidSphere(2, 20, 5);
-	glPopMatrix();
-	glEnd();
+	image->setPos(position.x, position.y);
+	image->draw();
 }
 
 void Capsule::Move()
@@ -40,9 +43,9 @@ void Capsule::Move()
 
 	if (vel.y <-5)	vel.y = -5;
 
-	if (vel.x > 3)	vel.x = 3;
+	if (vel.x > 7)	vel.x = 7;
 
-	if (vel.x <-3)	vel.x = -3;
+	if (vel.x <-7)	vel.x = -7;
 
 	float t = 0.025;
 	position = position + vel * t + (acc) * t * t;
@@ -59,11 +62,5 @@ Vector2 Capsule::GetVel()
 	return vel;
 }
 
-void Capsule::Hurt() { life -= 5; }
 
-void Capsule::Cure() { life += 10; }
-
-void Capsule::BurnFuel() { fuel--; }
-
-void Capsule::FuelUp() { fuel += 100; }
 

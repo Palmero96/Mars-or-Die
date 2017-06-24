@@ -14,6 +14,9 @@ Home::~Home()
 
 void Home::Draw()
 {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
 	Phase::Draw();
 
 	glEnable(GL_TEXTURE_2D);

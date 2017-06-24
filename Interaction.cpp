@@ -23,3 +23,5 @@ bool Interaction::ProximityOrbit(Vector2 planet_pos, Vector2 ship_pos)
 	else
 		return false;
 }
+
+//bool Interaction::

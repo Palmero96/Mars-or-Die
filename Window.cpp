@@ -12,7 +12,7 @@ void Window::Draw(float x, float y, int n) // X position, Y position, Kind of wi
 	switch (n)
 	{
 	case 0:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/houston.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/houston_inc.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
@@ -23,7 +23,7 @@ void Window::Draw(float x, float y, int n) // X position, Y position, Kind of wi
 		break;
 
 	case 1:
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/fuel.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/houston0.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
@@ -31,6 +31,27 @@ void Window::Draw(float x, float y, int n) // X position, Y position, Kind of wi
 		glTexCoord2d(1, 0);  glVertex3f(1.1, -0.3, 0); // bottom right
 		glTexCoord2d(1, 1);  glVertex3f(1.1, -0.55, 0);	// top right
 		glTexCoord2d(0, 1);  glVertex3f(-1.1, -0.55, 0);// top left
+		break;
+
+	case 2:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/houston1.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, y - 0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, y - 0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
+		break;
+	case 3:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/houston2.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, y - 0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, y - 0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
 		break;
 	}
 

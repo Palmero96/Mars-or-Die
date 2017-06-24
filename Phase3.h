@@ -1,5 +1,6 @@
 #pragma once
-#include "LifeBar.h"
+#include "Interaction.h"
+#include "FuelBar.h"
 #include "Phase.h"
 #include "SmallCloud.h"
 #include "Capsule.h"
@@ -10,13 +11,19 @@
 class Phase3 : public Phase
 {
 
-	Capsule dragon;
-	LifeBar fuel;
-	List<class SmallCloud> small_cloud;
+	Capsule *dragon;
+	List<class FuelBonus, 8> fuel_bonus;
+	FuelBar fuelBar;
+	List<class SmallCloud, 70> small_cloud;
 	double y;
+
 	int randomVectorX[CLOUDS];
 	int randomVectorY[CLOUDS];
 	int randomCloud[CLOUDS];
+
+	bool burn, burning;
+
+	int time;
 
 public:
 

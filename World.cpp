@@ -11,6 +11,7 @@ World::World()
 	ship = 0; 
 	ang = 0;
 	success = false;
+	w = 0;
 }
 
 World::~World() {delete ship; }
@@ -46,12 +47,15 @@ void World::Initialize() {
 
 void World::Draw() 
 {
-	glDepthMask(GL_FALSE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (y_eye < 15)  window.Draw(0, 0, 3);
 
+	if(w==0)
+		w1.Draw(0, 0, 0);
+	if (w == 1)
+		w1.Draw(0, 0, 1);
+	if (w == 2)
+		w1.Draw(0, 0, 2);
 
-	if (y_eye < 15)  window.Draw(0, 0, 0);
 
 	gluLookAt(x_eye, y_eye, z_eye,  // posicion del ojo
 		x_look, y_look, z_look,      // hacia que punto mira  (0,0,0) 
@@ -59,7 +63,6 @@ void World::Draw()
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
-	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 
 	glColor3f(1, 1, 1);
@@ -69,7 +72,6 @@ void World::Draw()
 	glTexCoord2d(0, 0);  glVertex3f(-200, -50, 500);
 
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
-	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1); 
 	glTexCoord2d(0, 1);  glVertex3f(-300, -50, 500);
@@ -78,7 +80,6 @@ void World::Draw()
 	glTexCoord2d(0, 0);  glVertex3f(300, -50, 500);
 
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/space1.png").id);
-	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
 	glTexCoord2d(0, 1);  glVertex3f(200, -50, 500);
@@ -90,7 +91,6 @@ void World::Draw()
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
-	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
 	sun.Draw("textures/Sun.png");
@@ -172,7 +172,12 @@ void World::Key(unsigned char key, int x_t, int y_t)
 			ship->SetT(2.5);
 		}
 		
-	}		
+	}
+
+	if (key == 'k')
+	{
+		w++;
+	}
 }
 
 float World::GetEye(char c)

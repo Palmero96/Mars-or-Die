@@ -16,11 +16,12 @@ class World: public Phase
 	Ship *ship;
 	Planet earth, mars, venus, mercury;
 	Planet moon;
-	Window window;
+	Window window, w1, w2, w3;
 	Vector2 z;
 	float x_eye, y_eye, z_eye, ang;
 	float x_look, y_look, z_look;
-	bool sloMo, success;
+	bool sloMo, success, flag;
+	int w; // window
 
 public:
 

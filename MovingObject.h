@@ -24,6 +24,7 @@ public:
 	void SetOmega(float);
 
 	void SetAcc(Vector2);
+	Vector2 GetAcc();
 
 	virtual void Move();
 };

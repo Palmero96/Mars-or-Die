@@ -51,3 +51,8 @@ void MovingObject::SetAcc(Vector2 a)
 {
 	acc = a;
 }
+
+Vector2 MovingObject::GetAcc()
+{
+	return acc;
+}

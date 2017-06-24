@@ -96,21 +96,33 @@ void SmallCloud::Draw()
 void SmallCloud::Move()
 {
 	float t = 0.025;
+
 	if (vel.y > 60)
+	{
 		vel.y = 60;
-	position.y = position.y + vel.y * t + acc.y * t * t;
+		acc.y = 0;
+	}
+
+	if (vel.y < -60)
+	{
+		vel.y = -60;
+		acc.y = 0;
+	}
+
+	position.y += vel.y * t + acc.y * t * t;
+	vel.y += acc.y * t;
 }
 
 void SmallCloud::Decelerate()
 {
-	vel.x = 0;
-	acc.y = 0;
-	if(vel.y > 30)
-		vel.y--;
+	if (vel.y > 15)		
+		acc.y = -20;
+	else acc.y = 0;
 }
 
 void SmallCloud::Accelerate()
 {
-	if (vel.y < 60)
-		vel.y++;	
+	if (vel.y < 60)		
+		acc.y = 20;
+	else acc.y = 0;
 }
