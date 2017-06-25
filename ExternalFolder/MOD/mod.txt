@@ -1,0 +1,1 @@
+esta carpeta tiene que llamrse igual que el proyeecto y en ella están todos los archivos .cpp, .h, texturas, etc
