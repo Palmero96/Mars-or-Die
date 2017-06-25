@@ -1,0 +1,34 @@
+﻿  Alien.cpp
+  Generando código...
+  Compilando...
+  Wormholes.cpp
+  Window.cpp
+  UFO.cpp
+  Sphere.cpp
+  SmallCloud.cpp
+  Ship2.cpp
+c:\users\ignacio\desktop\universidad\6º cuatrimestre\informática ii\mars or die\code\marsordie\marsordie\ship2.cpp(40): warning C4804: '<': uso no seguro del tipo 'bool' en la operación
+  Planet.cpp
+  Phase3.cpp
+  Phase2.cpp
+  Phase1.cpp
+  Phase.cpp
+  Pause.cpp
+  Obstacle.cpp
+  Main.cpp
+  Interaction.cpp
+  Home.cpp
+  Holes.cpp
+  FuelUnit.cpp
+  FuelBar.cpp
+  Fuel.cpp
+  Generando código...
+c:\users\ignacio\desktop\universidad\6º cuatrimestre\informática ii\mars or die\code\marsordie\marsordie\phase1.cpp(199): warning C4715: 'Phase1::GetEye': no todas las rutas de acceso de control devuelven un valor
+  Compilando...
+  Coordinator.cpp
+  Capsule.cpp
+  Asteroid.cpp
+  Animation.cpp
+  Generando código...
+  MarsOrDie.vcxproj -> C:\Users\Ignacio\Desktop\Universidad\6º Cuatrimestre\Informática II\Mars or Die\Code\MarsOrDie\Debug\MarsOrDie.exe
+  MarsOrDie.vcxproj -> C:\Users\Ignacio\Desktop\Universidad\6º Cuatrimestre\Informática II\Mars or Die\Code\MarsOrDie\Debug\MarsOrDie.pdb (Partial PDB)
