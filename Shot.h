@@ -1,24 +1,16 @@
 #pragma once
-#include <iostream>
+#include "Vector2.h"
 #include "glut.h"
-#include "Vector2D.h"
-#include <math.h>
-
-using namespace std;
-
 class Shot
 {
-	float alpha = atan(position0.x/position0.y);
-	float orbit_radius;
-	Vector2D position1, position0;
-
+	float radio;
+	Vector2 pos, vel;
 public:
-
 	Shot();
-	~Shot();
-
-	void Draw();
-	void Move();
-	void SetPos(Vector2D, float);
+	virtual ~Shot();
+	void Draw(Vector2 pos);
+	void Move(unsigned char key, Vector2 pos, Vector2 vel);
+	Vector2 getPos();
+	friend class Interaction;
 };
 

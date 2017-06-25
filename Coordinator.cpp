@@ -7,18 +7,18 @@ Coordinator::Coordinator()
 }
 
 
-Coordinator::~Coordinator()	{}
+Coordinator::~Coordinator() {}
 
 void Coordinator::Draw()
 {
 	switch (phase)
 	{
 	case HOME:
-	
+
 		home.Draw();
 		if (home.GetText_Gone())
 		{
-			world.Initialize();
+			phase1.Initialize();
 			phase = FIRST_PHASE;
 		}
 		break;
@@ -28,12 +28,12 @@ void Coordinator::Draw()
 		pause.Draw();
 		break;
 
-	case FIRST_PHASE: 
+	case FIRST_PHASE:
 
-		world.Draw();
+		phase1.Draw();
 		break;
 
-	case SECOND_PHASE: 
+	case SECOND_PHASE:
 
 		phase2.Draw();
 		break;
@@ -51,10 +51,13 @@ void Coordinator::Timer()
 {
 	switch (phase)
 	{
+	case HOME:
+		home.Timer();
+
 	case FIRST_PHASE:
 
-		world.Timer();
-		if (world.GetSuccess())	world.CloseUp();
+		phase1.Timer();
+		if (phase1.GetSuccess())	phase1.CloseUp();
 		break;
 
 	case SECOND_PHASE:
@@ -76,7 +79,7 @@ void Coordinator::Key(unsigned char key, int x_t, int y_t)
 		home.Key(key, x_t, y_t);
 
 	if (phase == FIRST_PHASE)
-		world.Key(key, x_t, y_t);
+		phase1.Key(key, x_t, y_t);
 
 	if (phase == SECOND_PHASE)
 		phase2.Key(key, x_t, y_t);
@@ -88,14 +91,14 @@ void Coordinator::Key(unsigned char key, int x_t, int y_t)
 	{
 		switch (phase)
 		{
-			case FIRST_PHASE:
-				phase2.Initialize();
-				phase = SECOND_PHASE;
-				break;
-			case SECOND_PHASE:
-				phase3.Initialize();
-				phase = THIRD_PHASE;
-				break;
+		case FIRST_PHASE:
+			phase2.Initialize();
+			phase = SECOND_PHASE;
+			break;
+		case SECOND_PHASE:
+			phase3.Initialize();
+			phase = THIRD_PHASE;
+			break;
 		}
 
 	}
@@ -113,6 +116,12 @@ void Coordinator::Key(unsigned char key, int x_t, int y_t)
 			phase = prevState;
 			p = false;
 		}
+	}
+
+	if (key == '3')
+	{
+		phase3.Initialize();
+		phase = THIRD_PHASE;
 	}
 }
 

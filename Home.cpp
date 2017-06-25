@@ -10,6 +10,7 @@ Home::Home()
 
 Home::~Home()
 {
+
 }
 
 void Home::Draw()
@@ -20,7 +21,7 @@ void Home::Draw()
 	Phase::Draw();
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/mars_home.png").id);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/home/mars_home.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
@@ -29,11 +30,14 @@ void Home::Draw()
 	glTexCoord2d(1, 0); glVertex3f(25, -10, 0);
 	glTexCoord2d(0, 0); glVertex3f(-25, -10, 0);
 	glEnd();
+
+
 	glEnable(GL_LIGHTING);
 	glDisable(GL_TEXTURE_2D);
 
 	if (text_leave)
 		text_x++;
+
 	if (text_x >= 25)
 	{
 		text_gone = true;
@@ -42,7 +46,7 @@ void Home::Draw()
 
 	ETSIDI::setTextColor(1, 1, 1);
 	ETSIDI::setFont("fonts/nasalization-rg.ttf", 50);
-	ETSIDI::printxy("MARS or Die",text_x, 7);
+	ETSIDI::printxy("MARS or Die", text_x, 7);
 
 	ETSIDI::setTextColor(1, 1, 1);
 	ETSIDI::setFont("fonts/nasalization-rg.ttf", 12);
@@ -51,17 +55,20 @@ void Home::Draw()
 	ETSIDI::setTextColor(1, 1, 1);
 	ETSIDI::setFont("fonts/nasalization-rg.ttf", 12);
 	ETSIDI::printxy("Press a to start", -4, 5);
+
 }
 
-void Home::Initialize()	{}
+void Home::Initialize() {}
 
 void Home::Timer()
-{}
+{
+}
 
 void Home::Key(unsigned char key, int x_t, int y_t)
 {
 	if (key == 'a')
 		text_leave = true;				//     HOME_TEXT_MOVEMENT
+
 }
 
 void Home::SetText_x(int a) { text_x = a; }

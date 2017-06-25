@@ -5,15 +5,15 @@
 #include "ETSIDI.h"
 #include "MovingObject.h"
 
-class SmallCloud:public MovingObject 
+class Cloud :public MovingObject
 {
 
 	int rand_cloud;
 
 public:
 
-	SmallCloud(float, float, int);
-	~SmallCloud();
+	Cloud(float, float, int);
+	~Cloud();
 
 	void Draw();
 	void Move();

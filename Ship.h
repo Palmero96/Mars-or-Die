@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector2D.h"
+#include "Vector2.h"
 #include "Planet.h"
 #include "MovingObject.h"
 #include "glut.h"
@@ -7,7 +7,7 @@
 class Ship : public MovingObject
 {
 	float d = sqrt(pow(position.x, 2) + pow(position.y, 2));
-	float radius,t;
+	float radius, t;
 	Vector2 m, planetO;
 	bool orbit;
 

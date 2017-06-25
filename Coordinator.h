@@ -1,5 +1,5 @@
 #pragma once
-#include "World.h"
+#include "Phase1.h"
 #include "Phase2.h"
 #include "Pause.h"
 #include "Phase3.h"
@@ -10,10 +10,10 @@ class Coordinator
 	Window window;
 	Home home;
 	Pause pause;
-	World world;
+	Phase1 phase1;
 	Phase2 phase2;
 	Phase3 phase3;
-	enum State{HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER};
+	enum State { HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER };
 	State phase;
 	State prevState;	// works as an auxiliar state for the pause implementation
 

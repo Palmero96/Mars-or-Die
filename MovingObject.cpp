@@ -2,12 +2,12 @@
 #include <math.h>
 
 
-MovingObject::MovingObject()	
+MovingObject::MovingObject()
 {
 }
 
 
-MovingObject::~MovingObject()	{}
+MovingObject::~MovingObject() {}
 
 
 void MovingObject::Move()

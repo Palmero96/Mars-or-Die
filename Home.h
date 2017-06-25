@@ -1,7 +1,14 @@
 #pragma once
+#include "Capsule.h"
 #include "Phase.h"
+#include "ETSIDI.h"
+
+using namespace ETSIDI;
+using ETSIDI::getTexture;
+
 class Home : public Phase
 {
+	SpriteSequence *flame;
 	int text_x;
 	bool text_leave;
 	bool text_gone;

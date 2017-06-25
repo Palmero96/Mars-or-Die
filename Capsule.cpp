@@ -19,7 +19,7 @@ Capsule::Capsule(const char *name)
 	g.x = 0;
 	g.y = 0;
 
-	image = new ETSIDI::Sprite(name, position.x, position.y,20,20);
+	image = new ETSIDI::Sprite(name, position.x, position.y, 20, 20);
 }
 
 
@@ -33,6 +33,7 @@ Capsule::~Capsule()
 
 void Capsule::Draw()
 {
+	image->setSize(10, 12);
 	image->setPos(position.x, position.y);
 	image->draw();
 }
@@ -43,12 +44,13 @@ void Capsule::Move()
 
 	if (vel.y <-5)	vel.y = -5;
 
-	if (vel.x > 7)	vel.x = 7;
+	if (vel.x > 20)	vel.x = 20;
 
-	if (vel.x <-7)	vel.x = -7;
+	if (vel.x <-20)	vel.x = -20;
 
 	float t = 0.025;
-	position = position + vel * t + (acc) * t * t;
+
+	position = position + vel * t + (acc)* t * t;
 	vel = vel + acc * t;
 }
 

@@ -5,25 +5,37 @@
 #include "SmallCloud.h"
 #include "Capsule.h"
 #include "List.h"
+#include "ETSIDI.h"
 
-#define CLOUDS 70
+using namespace ETSIDI;
+using ETSIDI::getTexture;
+
+#define CLOUDS 80
+#define ALIENS 20
+#define FUEL 15
 
 class Phase3 : public Phase
 {
+	//SpriteList aliens, fuelBonus;
+	List<class Cloud, 70> small_cloud;
 
 	Capsule *dragon;
-	List<class FuelBonus, 8> fuel_bonus;
 	FuelBar fuelBar;
-	List<class SmallCloud, 70> small_cloud;
-	double y;
+	SpriteSequence *flame;
 
-	int randomVectorX[CLOUDS];
+	int randomVectorX[CLOUDS];	//vectors for storing random numbers
 	int randomVectorY[CLOUDS];
+	int randomAlienVectorX[ALIENS];	//vectors for storing random numbers
+	int randomAlienVectorY[ALIENS];
+	int randomFuelVectorX[FUEL];	//vectors for storing random numbers
+	int randomFuelVectorY[FUEL];
 	int randomCloud[CLOUDS];
 
 	bool burn, burning;
 
 	int time;
+	float y;
+
 
 public:
 

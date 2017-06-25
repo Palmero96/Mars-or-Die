@@ -1,19 +1,25 @@
 #pragma once
-#include "glut.h"
+#include "Ship2.h"
+#include "Obstacle.h"
+#include "Asteroid.h"
+#include "UFO.h"
+#include "Fuel.h"
+#include "Wormholes.h"
+#include "Vector2.h"
 #include "Phase.h"
-class Phase2 : public Phase
+#define MAX 500
+
+class Phase2 :public Phase
 {
+	Obstacle* List[MAX];
 	float x_eye, y_eye, z_eye;
-
+	Ship2 *ship;
 public:
-
-
-	Phase2();
+	Phase2() {}
 	virtual ~Phase2();
-
-	void Draw();
-	void Timer();
 	void Initialize();
-	void Key(unsigned char key, int x_t, int y_t);
+	void Draw();
+	virtual void Timer();
+	virtual void Key(unsigned char key, int x_t, int y_t);
 };
 

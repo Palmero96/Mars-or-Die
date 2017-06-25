@@ -3,7 +3,7 @@
 #include "MovingObject.h"
 #include "ETSIDI.h"
 
-class Capsule :	public MovingObject
+class Capsule : public MovingObject
 {
 	ETSIDI::Sprite *image;
 	Vector2 g;

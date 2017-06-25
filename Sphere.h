@@ -1,9 +1,10 @@
 #pragma	once
 #include <iostream>
-#include "Vector2D.h"
+#include "Vector2.h"
 #include "glut.h"
 #include <math.h>
 #include "Object.h"
+
 using namespace std;
 
 class Sphere : virtual public Object

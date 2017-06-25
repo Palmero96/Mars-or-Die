@@ -1,30 +1,46 @@
 #include "Shot.h"
+#define MAX_X 1000
+#define MAX_Y -300
+//#define MAX_H 10
+//#define MAX_W 10
 
-Shot::Shot()	{}
 
-Shot::~Shot()	{}
-
-void Shot::SetPos(Vector2D earth_pos, float r) 
+Shot::Shot()
 {
-	position0 = earth_pos;
-	orbit_radius = r;
+	radio = 1.0F;
+	vel = Vector2(0, 0);
+	//image = new ETSIDI::Sprite(name,0,0,1,1);
+	pos = Vector2(-20, 0);
 }
 
 
-void Shot::Move() 
+Shot::~Shot()
 {
-	position1.x = position0.x + 40 * cos(alpha);
-	position1.y = position0.y + 40 * sin(alpha);
 }
 
-void Shot::Draw()
-{
-	glPopMatrix();
-	glLineWidth(8);
-	glColor4f(0.0, 1.0, 0.0, 1.0);
-	glBegin(GL_LINES);
-	glVertex3f(position0.x, 0, position0.y);
-	glVertex3f(position1.x, 0, position1.y);
+void Shot::Draw(Vector2 posi) {
+	//image->draw();
+	pos.x += vel.x*0.5;
+	pos.y += vel.y*0.5;
+	glColor3ub(255, 255, 255);
 	glPushMatrix();
-	glEnd();
+	glTranslatef(pos.x, pos.y, 0);
+	glutSolidSphere(radio, 50, 50);
+	glPopMatrix();
 }
+
+void Shot::Move(unsigned char key, Vector2 posi, Vector2 veli) {
+	if (key == ' ') {
+		vel.x = veli.x + 12;
+		vel.y = veli.y + 12;
+	}
+	else
+		vel.x = veli.x;
+	vel.y = veli.y;
+
+
+	//image->setPos(posi.x, posi.y);
+	//image->setVel(vel.x+2, vel.y+2);
+}
+
+Vector2 Shot::getPos() { return pos; }

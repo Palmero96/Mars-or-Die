@@ -15,22 +15,22 @@ void FuelUnit::Draw()
 {
 	switch (index)
 	{
-		case 0:
-			break;
-		case 1:
-			y = -0.535 + 0.125;
-			break;
-		case 2:
-			y = -0.535 + 0.25;
-			break;
-		case 3:
-			y = -0.535 + 0.375;
-			break; 
-		case 4:
-			y = -0.535 + 0.5;
-			break;
-		default: 
-			break;
+	case 0:
+		break;
+	case 1:
+		y = -0.535 + 0.125;
+		break;
+	case 2:
+		y = -0.535 + 0.25;
+		break;
+	case 3:
+		y = -0.535 + 0.375;
+		break;
+	case 4:
+		y = -0.535 + 0.5;
+		break;
+	default:
+		break;
 	}
 
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/fuel_unit.png").id);

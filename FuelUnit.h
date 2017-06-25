@@ -5,7 +5,7 @@
 class FuelUnit
 {
 	int index;
-	float x,y;
+	float x, y;
 
 public:
 

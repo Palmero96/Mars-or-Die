@@ -40,4 +40,4 @@ earth.SetRadius(4.5);
 earth.SetOrbitRadius(210);
 earth.SetOmega(EARTH);
 earth.SetAngle(rand()%360);
-*/	
+*/

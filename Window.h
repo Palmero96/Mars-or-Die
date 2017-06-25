@@ -13,4 +13,3 @@ public:
 	void Draw(float, float, int);
 	~Window();
 };
-

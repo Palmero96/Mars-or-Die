@@ -19,7 +19,7 @@ void Pause::Draw()
 	glEnable(GL_LIGHT0);
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/mars_home.png").id);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/home/mars_home.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);

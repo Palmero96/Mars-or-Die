@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-Ship::Ship()	
+Ship::Ship()
 {
 	alpha = 0;
 	radius = 1;
@@ -12,7 +12,7 @@ Ship::Ship()
 	orbit = false;
 }
 
-Ship::~Ship()	{}
+Ship::~Ship() {}
 
 void Ship::Move()
 {

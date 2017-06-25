@@ -17,8 +17,8 @@ public:
 	void DestroyContent();
 	int GetNum();
 	void SetNum(int);
-	
-	void Spec(void(T::*func)())
+
+	void Spec(void (T::*func) ())
 	{
 		for (int i = 0; i < num; i++)
 			(list[i]->*func)();
@@ -30,6 +30,7 @@ template <class T, int max> List<T, max>::List()
 {
 	num = 0;
 }
+
 template <class T, int max> List<T, max>::~List()
 {
 
@@ -71,3 +72,4 @@ template <class T, int max> void List<T, max>::Remove()
 	delete list[num - 1];
 	num--;
 }
+
