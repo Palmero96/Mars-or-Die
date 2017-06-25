@@ -1,9 +1,9 @@
 #include "Phase3.h"
 
 Phase3::Phase3()
-{/*
- aliens.SetNum(0);
- fuelBonus.SetNum(0);*/
+{
+	fuel.SetNum(0);
+	aliens.SetNum(0);
 	y = 0;					//camera parameter
 	flame = 0;
 	time = 0;
@@ -14,9 +14,9 @@ Phase3::Phase3()
 
 Phase3::~Phase3()
 {
-	small_cloud.DestroyContent();
-	/*aliens.DestroyContent();
-	fuelBonus.DestroyContent();*/
+	clouds.DestroyContent();
+	aliens.DestroyContent();
+	fuel.DestroyContent();
 	delete dragon;
 }
 
@@ -34,47 +34,48 @@ void Phase3::Initialize()
 	for (int i = 0; i < CLOUDS; i++)
 	{
 		Cloud *jonSnow = new Cloud(randomVectorX[i], randomVectorY[i], randomCloud[i]);
-		small_cloud.Add(jonSnow);
-		int n = small_cloud.GetNum();
-		small_cloud.SetNum(n++);
+		clouds.Add(jonSnow);
+		int n = clouds.GetNum();
+		clouds.SetNum(n++);
 	}
 
 
-	//for (int i = 0; i < ALIENS; i++)
-	//	randomAlienVectorX[i] = (rand() % 110) - 60;
+	for (int i = 0; i < ALIENS; i++)
+		randomAlienVectorX[i] = (rand() % 110) - 60;
 
-	//for (int i = 0; i < ALIENS; i++)
-	//	randomAlienVectorY[i] = (rand() % 1700) - 2000;
+	for (int i = 0; i < ALIENS; i++)
+		randomAlienVectorY[i] = (rand() % 1700) - 2000;
 
-	//for (int i = 0; i < FUEL; i++)
-	//	randomFuelVectorX[i] = (rand() % 110) - 60;
+	for (int i = 0; i < FUEL; i++)
+		randomFuelVectorX[i] = (rand() % 110) - 60;
 
-	//for (int i = 0; i < FUEL; i++)
-	//	randomFuelVectorY[i] = (rand() % 1700) - 2000;
+	for (int i = 0; i < FUEL; i++)
+		randomFuelVectorY[i] = (rand() % 1700) - 2000;
 
-	//for (int i = 0; i < ALIENS; i++)
-	//{
-	//	Sprite *a = new Sprite("textures/phase3/ufo.png", 0, 0, 2, 2);
-	//	aliens.Add(a);
-	//	int n = aliens.GetNum();
-	//	aliens.SetNum(n++);
-	//}
+	for (int i = 0; i < ALIENS; i++)
+	{
+		Obstacle *a = new Obstacle("textures/phase3/ufo.png");
+		a->SetSize(6, 2);
+		aliens.Add(a);
+		int n = aliens.GetNum();
+		aliens.SetNum(n++);
+	}
 
-	//for (int i = 0; i < FUEL; i++)
-	//{
-	//	Sprite *gas = new Sprite("textures/phase3/gas.png", 0, 0, 2, 2);
-	//	fuelBonus.Add(gas);
-	//	int n = fuelBonus.GetNum();
-	//	fuelBonus.SetNum(n++);
-	//}
+	for (int i = 0; i < FUEL; i++)
+	{
+		Obstacle *gas = new Obstacle("textures/phase3/gas.png");
+		gas->SetSize(5, 5);
+		fuel.Add(gas);
+		int n = fuel.GetNum();
+		fuel.SetNum(n++);
+	}
 
-	//aliens.SetPos(randomAlienVectorX, randomAlienVectorY, ALIENS);
-	//fuelBonus.SetPos(randomFuelVectorX, randomFuelVectorY, FUEL);
+	aliens.SetPos(randomAlienVectorX, randomAlienVectorY);
+	fuel.SetPos(randomFuelVectorX, randomFuelVectorY);
 }
 
 void Phase3::Draw()
 {
-
 	fuelBar.Draw();
 
 	if (y < -132) y = -132;
@@ -83,7 +84,10 @@ void Phase3::Draw()
 		0.0, y - 13, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
+	fuel.Draw();
+	aliens.Draw();
 	dragon->Draw();
+
 
 	if (flame)
 	{
@@ -138,8 +142,7 @@ void Phase3::Draw()
 
 	glEnd();
 
-	small_cloud.Draw();
-
+	clouds.Draw();
 
 	glDisable(GL_BLEND);			// VERY IMPORTANT! DON'T CHANGE THE ORTHER OF THESE FUNCTIONS BELOW (or the Vogons will come to read us their poetry...)
 	glDepthMask(GL_TRUE);
@@ -153,6 +156,7 @@ void Phase3::Draw()
 
 void Phase3::Timer()
 {
+	
 	if (fuelBar.GetNum() < 0) burn = false; // if you ran out of fuel
 
 	if (burn) // condition of decelerating the clouds and a filter for executing the rest
@@ -171,7 +175,7 @@ void Phase3::Timer()
 		if (time == 100)
 		{
 			dragon->SetAcc(Vector2(0, -5));
-			small_cloud.Spec(&Cloud::Accelerate);
+			clouds.Spec(&Cloud::Accelerate);
 			time = 0;
 			burning = false;
 		}
@@ -181,7 +185,10 @@ void Phase3::Timer()
 
 
 	dragon->Move();
-	small_cloud.Move();
+	clouds.Move();
+	fuel.Move();
+	aliens.Move();
+
 
 	if (flame)
 	{
@@ -206,7 +213,7 @@ void Phase3::SpecialKey(int key, int x, int y)
 	{
 	case GLUT_KEY_DOWN:
 
-		small_cloud.Spec(&Cloud::Accelerate);
+		clouds.Spec(&Cloud::Accelerate);
 		burn = false;
 		break;
 
@@ -215,7 +222,7 @@ void Phase3::SpecialKey(int key, int x, int y)
 		if (fuelBar.GetNum() > 0)
 		{
 			flame = new ETSIDI::SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, -10, 7, 10, 10);
-			small_cloud.Spec(&Cloud::Decelerate);
+			clouds.Spec(&Cloud::Decelerate);
 			burn = true;
 		}
 

@@ -3,7 +3,7 @@
 #include "Interaction.h"
 #include "Vector2.h"
 
-class Obstacle
+class Obstacle : public MovingObject
 {
 protected:
 
@@ -12,9 +12,14 @@ protected:
 public:
 
 	Obstacle();
+	Obstacle(const char*);
 	~Obstacle();
 
-	virtual void Draw(Vector2 pos) = 0;
+	virtual void Draw(Vector2 pos);
+	void Move();
+	void Draw();
+	void SetPos(float, float);
+	void SetSize(float, float);
 	ETSIDI::Sprite getImage() { return *image; }
 	friend class Interaction;
 };

@@ -1,8 +1,9 @@
 #pragma once
 #include "Interaction.h"
+#include "ObstacleList.h"
 #include "FuelBar.h"
 #include "Phase.h"
-#include "SmallCloud.h"
+#include "Cloud.h"
 #include "Capsule.h"
 #include "List.h"
 #include "ETSIDI.h"
@@ -16,20 +17,19 @@ using ETSIDI::getTexture;
 
 class Phase3 : public Phase
 {
-	//SpriteList aliens, fuelBonus;
-	List<class Cloud, 70> small_cloud;
-
+	List<class Cloud, 70> clouds;
+	ObstacleList fuel, aliens;
 	Capsule *dragon;
 	FuelBar fuelBar;
 	SpriteSequence *flame;
 
-	int randomVectorX[CLOUDS];	//vectors for storing random numbers
-	int randomVectorY[CLOUDS];
-	int randomAlienVectorX[ALIENS];	//vectors for storing random numbers
-	int randomAlienVectorY[ALIENS];
-	int randomFuelVectorX[FUEL];	//vectors for storing random numbers
-	int randomFuelVectorY[FUEL];
-	int randomCloud[CLOUDS];
+	float randomVectorX[CLOUDS];	//vectors for storing random numbers
+	float randomVectorY[CLOUDS];
+	float randomAlienVectorX[ALIENS];	//vectors for storing random numbers
+	float randomAlienVectorY[ALIENS];
+	float randomFuelVectorX[FUEL];	//vectors for storing random numbers
+	float randomFuelVectorY[FUEL];
+	float randomCloud[CLOUDS];
 
 	bool burn, burning;
 
