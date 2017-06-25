@@ -81,3 +81,8 @@ June 20th 2017
    - There is a Pause phase available pressing 'p' at any given moment
    - Textures applyed to planets and sun
    - More code stuff
+
+June 25th 2017
+   - The three phases are joint together. By pressing '3' you shortcut to the 3rd phase and 'c' 
+   you switch phases
+   - Flames added to the capsule in the 3rd phase, as well as a fuel bar
