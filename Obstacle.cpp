@@ -66,3 +66,8 @@ void Obstacle::Move()
 	MovingObject::Move();
 	image->setPos(position.x, position.y);
 }
+
+bool Obstacle::Collision(Sprite s)
+{
+	return image->collides(s);
+}

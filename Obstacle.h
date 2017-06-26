@@ -1,14 +1,17 @@
 #pragma once
 #include "ETSIDI.h"
-#include "Interaction.h"
+#include "MovingObject.h"
 #include "Vector2.h"
+
+using namespace ETSIDI;
+using ETSIDI::getTexture;
 
 class Obstacle : public MovingObject
 {
 protected:
 
-	ETSIDI::Sprite *image;
-
+	Sprite *image;
+	friend class Interaction;
 public:
 
 	Obstacle();
@@ -20,7 +23,8 @@ public:
 	void Draw();
 	void SetPos(float, float);
 	void SetSize(float, float);
-	ETSIDI::Sprite getImage() { return *image; }
-	friend class Interaction;
+	bool Collision(Sprite);
+
+	Sprite getImage() { return *image; }
 };
 

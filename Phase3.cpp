@@ -7,7 +7,7 @@ Phase3::Phase3()
 	y = 0;					//camera parameter
 	flame = 0;
 	time = 0;
-	burn = burning = false;
+	burn = burning = gameOver = false;
 
 	dragon = new Capsule("textures/phase3/nave.png");
 }
@@ -44,13 +44,13 @@ void Phase3::Initialize()
 		randomAlienVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < ALIENS; i++)
-		randomAlienVectorY[i] = (rand() % 1700) - 2000;
+		randomAlienVectorY[i] = (rand() % 1000) - 1500;
 
 	for (int i = 0; i < FUEL; i++)
 		randomFuelVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < FUEL; i++)
-		randomFuelVectorY[i] = (rand() % 1700) - 2000;
+		randomFuelVectorY[i] = (rand() % 1000) - 1500;
 
 	for (int i = 0; i < ALIENS; i++)
 	{
@@ -156,13 +156,14 @@ void Phase3::Draw()
 
 void Phase3::Timer()
 {
-	
+	aliens.ListCollision(*dragon);
+
 	if (fuelBar.GetNum() < 0) burn = false; // if you ran out of fuel
 
 	if (burn) // condition of decelerating the clouds and a filter for executing the rest
 	{
 		fuelBar.Burn();
-		flame = new ETSIDI::SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, dragon->GetPos().x, dragon->GetPos().y, 12, 15);
+		flame = new SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, dragon->GetPos().x, dragon->GetPos().y, 12, 15);
 		burning = true;
 		burn = false;
 		dragon->SetAcc(Vector2(0, 5));
@@ -183,7 +184,6 @@ void Phase3::Timer()
 
 	y = dragon->GetPos().y; //camera movement
 
-
 	dragon->Move();
 	clouds.Move();
 	fuel.Move();
@@ -195,6 +195,12 @@ void Phase3::Timer()
 		flame->setPos(dragon->GetPos().x - 5.2, dragon->GetPos().y - 14);
 		flame->loop();
 	}
+
+	if (!dragon->Alive())
+	{
+		fuelBar.SetNum(0);
+		gameOver = true;
+	}
 }
 
 void Phase3::Key(unsigned char key, int x_t, int y_t)
@@ -203,6 +209,7 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 	{
 	case ' ':
 
+		dragon->SetAlive(false);
 		break;
 	}
 }
@@ -221,7 +228,7 @@ void Phase3::SpecialKey(int key, int x, int y)
 
 		if (fuelBar.GetNum() > 0)
 		{
-			flame = new ETSIDI::SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, -10, 7, 10, 10);
+	//		flame = new SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, -10, 7, 10, 10);
 			clouds.Spec(&Cloud::Decelerate);
 			burn = true;
 		}
@@ -241,3 +248,5 @@ void Phase3::SpecialKey(int key, int x, int y)
 	}
 
 }
+
+bool Phase3::GameOver() { return gameOver; }

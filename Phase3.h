@@ -31,7 +31,7 @@ class Phase3 : public Phase
 	float randomFuelVectorY[FUEL];
 	float randomCloud[CLOUDS];
 
-	bool burn, burning;
+	bool burn, burning, gameOver;
 
 	int time;
 	float y;
@@ -47,5 +47,7 @@ public:
 	void Initialize();
 	void Key(unsigned char key, int x_t, int y_t);
 	void SpecialKey(int key, int x, int y);
+
+	bool GameOver();
 };
 

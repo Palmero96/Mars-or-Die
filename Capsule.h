@@ -3,12 +3,17 @@
 #include "MovingObject.h"
 #include "ETSIDI.h"
 
+using namespace ETSIDI;
+using ETSIDI::getTexture;
+
 class Capsule : public MovingObject
 {
-	ETSIDI::Sprite *image;
-	Vector2 g;
+	Sprite *image;
+	SpriteSequence *explosion;
 	int life;
 	int fuel;
+	bool alive;
+	bool explosionStarted;
 
 public:
 	Capsule(const char *name);
@@ -20,5 +25,13 @@ public:
 
 	void SetVel(Vector2);
 	Vector2 GetVel();
+
+	Sprite GetImage();
+	
+	int GetLife();
+	void SetLife(int);
+
+	bool Alive();
+	void SetAlive(bool);
 };
 

@@ -1,14 +1,15 @@
 #include "Capsule.h"
 
+Capsule::Capsule() {}
 
+Capsule::~Capsule() {}
 
 Capsule::Capsule(const char *name)
 {
-	fuel = 3;
-	life = 100;
-
 	acc.x = 0;
 	acc.y = 0;
+	alive = true;
+	life = 3;
 
 	position.x = 0;
 	position.y = 0;
@@ -16,26 +17,34 @@ Capsule::Capsule(const char *name)
 	vel.x = 0;
 	vel.y = -3;
 
-	g.x = 0;
-	g.y = 0;
-
+	explosion = 0;
+	explosionStarted = false;
 	image = new ETSIDI::Sprite(name, position.x, position.y, 20, 20);
-}
-
-
-Capsule::Capsule()
-{
-}
-
-Capsule::~Capsule()
-{
 }
 
 void Capsule::Draw()
 {
-	image->setSize(10, 12);
-	image->setPos(position.x, position.y);
-	image->draw();
+	switch (alive)
+	{
+	case true:
+
+		image->setSize(10, 12);
+		image->setPos(position.x, position.y);
+		image->draw();
+		break;
+
+	case false:
+
+		if (!explosionStarted)
+		{
+			image->~Sprite();
+			explosion = new SpriteSequence("textures/phase3/explosion.png", 5, 4, 50, false, position.x - 5, position.y - 5, 10, 10);
+			explosionStarted = true;
+			break;
+		}
+	}
+	if (explosion)
+		explosion->draw();
 }
 
 void Capsule::Move()
@@ -52,17 +61,22 @@ void Capsule::Move()
 
 	position = position + vel * t + (acc)* t * t;
 	vel = vel + acc * t;
+
+	if (explosion)
+		explosion->loop();
 }
 
-void Capsule::SetVel(Vector2 v)
-{
-	vel = v;
-}
+void Capsule::SetVel(Vector2 v)		{ vel = v; }
 
-Vector2 Capsule::GetVel()
-{
-	return vel;
-}
+Vector2 Capsule::GetVel()			{ return vel; }
 
+void Capsule::SetAlive(bool b)		{ alive = b; }
 
+bool Capsule::Alive()				{ return alive; }
+
+void Capsule::SetLife(int x)		{ life = x;	}
+
+int Capsule::GetLife()				{ return life; }
+
+Sprite Capsule::GetImage()			{ return *image; }
 

@@ -5,7 +5,7 @@
 
 class FuelBar
 {
-	List <class FuelUnit, 3> fuel;
+	List <class FuelUnit, 7> fuel;
 
 public:
 	FuelBar();
@@ -13,5 +13,6 @@ public:
 	void Draw();
 	void Burn();
 	int GetNum();
+	void SetNum(int);
 };
 

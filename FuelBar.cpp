@@ -2,7 +2,7 @@
 
 FuelBar::FuelBar()
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		FuelUnit *gas = new FuelUnit(i);
 		fuel.Add(gas);
@@ -61,4 +61,9 @@ void FuelBar::Burn()
 int FuelBar::GetNum()
 {
 	return fuel.GetNum();
+}
+
+void FuelBar::SetNum(int n)
+{
+	fuel.SetNum(n);
 }

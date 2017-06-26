@@ -1,5 +1,8 @@
 #pragma once
 #include "Obstacle.h"
+#include "Capsule.h"
+#include "Interaction.h"
+
 #define MAXIMUM 50
 
 class ObstacleList
@@ -16,8 +19,12 @@ public:
 	void Draw();
 	void Move();
 	void DestroyContent();
+
 	int GetNum();
 	void SetNum(int);
+
 	void SetPos(float [], float[]);
+
+	void ListCollision(Capsule);
 };
 

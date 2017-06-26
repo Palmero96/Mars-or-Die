@@ -59,3 +59,9 @@ void ObstacleList::SetPos(float vx[], float vy[])
 	for (int i = 0; i < num; i++)
 		list[i]->SetPos(vx[i], vy[i]);
 }
+
+void ObstacleList::ListCollision(Capsule c)
+{
+	for (int i = 0; i < num; i++)
+		Interaction::Contact(c, *list[i]);
+}
