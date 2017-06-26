@@ -86,3 +86,8 @@ June 25th 2017
    - The three phases are joint together. By pressing '3' you shortcut to the 3rd phase and 'c' 
    you switch phases
    - Flames added to the capsule in the 3rd phase, as well as a fuel bar
+ 
+June 26th 2017
+   - Explosion implemented in the capsule of phase 3
+   - Interactions between the capsule and aliens implemented
+   - Now the aliens are cooler (The UFOs have 'VOGONS FLEET' written on front)
