@@ -24,7 +24,7 @@ bool Interaction::ProximityOrbit(Vector2 planet_pos, Vector2 ship_pos)
 		return false;
 }
 
-bool Interaction::Contact(Capsule c, Obstacle &o)
+bool Interaction::Contact(Capsule &c, Obstacle &o)
 {
 	if (o.Collision(c.GetImage()))
 	{

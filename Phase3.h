@@ -19,9 +19,8 @@ class Phase3 : public Phase
 {
 	List<class Cloud, 70> clouds;
 	ObstacleList fuel, aliens;
-	Capsule *dragon;
+	Capsule *hermes;
 	FuelBar fuelBar;
-	SpriteSequence *flame;
 
 	float randomVectorX[CLOUDS];	//vectors for storing random numbers
 	float randomVectorY[CLOUDS];
@@ -31,10 +30,10 @@ class Phase3 : public Phase
 	float randomFuelVectorY[FUEL];
 	float randomCloud[CLOUDS];
 
-	bool burn, burning, gameOver;
+	bool burning, gameOver;
 
 	int time;
-	float y;
+	float eye_y;
 
 
 public:

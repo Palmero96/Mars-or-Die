@@ -29,6 +29,13 @@ void FuelUnit::Draw()
 	case 4:
 		y = -0.535 + 0.5;
 		break;
+	case 5:
+		y = -0.535 + 0.625;
+		break;
+	case 6:
+		y = -0.535 + 0.75;
+		break;
+
 	default:
 		break;
 	}

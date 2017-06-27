@@ -2,14 +2,16 @@
 
 Phase3::Phase3()
 {
+	eye_y = 0;					//camera parameter
+
 	fuel.SetNum(0);
 	aliens.SetNum(0);
-	y = 0;					//camera parameter
-	flame = 0;
-	time = 0;
-	burn = burning = gameOver = false;
 
-	dragon = new Capsule("textures/phase3/nave.png");
+	burning = gameOver = false;
+
+	hermes = new Capsule("textures/phase3/nave.png");
+
+	fuelBar.SetNum(hermes->GetFuel());
 }
 
 Phase3::~Phase3()
@@ -17,7 +19,7 @@ Phase3::~Phase3()
 	clouds.DestroyContent();
 	aliens.DestroyContent();
 	fuel.DestroyContent();
-	delete dragon;
+	delete hermes;
 }
 
 void Phase3::Initialize()
@@ -78,27 +80,29 @@ void Phase3::Draw()
 {
 	fuelBar.Draw();
 
-	if (y < -132) y = -132;
+	if (eye_y < -132) eye_y = -132;
 
-	gluLookAt(0, y - 13, 40,  // posicion del ojo
-		0.0, y - 13, 0.0,      // hacia que punto mira  (0,0,0) 
+	gluLookAt(0, eye_y - 13, 40,  // posicion del ojo
+		0.0, eye_y - 13, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
 	fuel.Draw();
 	aliens.Draw();
-	dragon->Draw();
-
-
-	if (flame)
-	{
-		flame->setAngle(180);
-		flame->draw();
-	}
+	hermes->Draw();
 
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/surface.png").id);
+	glBegin(GL_POLYGON);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(1, 1);  glVertex3f(60, -170, 0);
+	glTexCoord2d(0, 1);  glVertex3f(-60, -170, 0);
+	glTexCoord2d(0, 0);  glVertex3f(-60, -230, 0);
+	glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
+
+	glEnd();
 
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/transition.png").id);
@@ -115,36 +119,27 @@ void Phase3::Draw()
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/stars.png").id);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(80, 20 + dragon->GetPos().y * 0.1, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + dragon->GetPos().y * 0.1, 0);
-	glTexCoord2d(0, 0);  glVertex3f(-40, -40 + dragon->GetPos().y * 0.1, 0);
-	glTexCoord2d(1, 0);  glVertex3f(80, -40 + dragon->GetPos().y * 0.1, 0);
+	glTexCoord2d(1, 1);  glVertex3f(80, 20 + hermes->GetPos().y * 0.1, 0);
+	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + hermes->GetPos().y * 0.1, 0);
+	glTexCoord2d(0, 0);  glVertex3f(-40, -40 + hermes->GetPos().y * 0.1, 0);
+	glTexCoord2d(1, 0);  glVertex3f(80, -40 + hermes->GetPos().y * 0.1, 0);
 
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/glow.png").id);
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(60, -140, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-60, -140, 0);
-	glTexCoord2d(0, 0);  glVertex3f(-60, -200, 0);
-	glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
+	//glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/glow.png").id);
+	//glBegin(GL_POLYGON);
+	//glColor3f(1, 1, 1);
+	//glTexCoord2d(1, 1);  glVertex3f(60, -140, 0);
+	//glTexCoord2d(0, 1);  glVertex3f(-60, -140, 0);
+	//glTexCoord2d(0, 0);  glVertex3f(-60, -200, 0);
+	//glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
 
-	glEnd();
+	//glEnd();	
 
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/surface.png").id);
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(60, -170, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-60, -170, 0);
-	glTexCoord2d(0, 0);  glVertex3f(-60, -230, 0);
-	glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
-
-	glEnd();
 
 	clouds.Draw();
 
-	glDisable(GL_BLEND);			// VERY IMPORTANT! DON'T CHANGE THE ORTHER OF THESE FUNCTIONS BELOW (or the Vogons will come to read us their poetry...)
+	glDisable(GL_BLEND); // VERY IMPORTANT! DON'T CHANGE THE ORTHER OF THESE FUNCTIONS BELOW (or the Vogons will come to read us their poetry...)
 	glDepthMask(GL_TRUE);
 
 	glEnable(GL_LIGHTING);
@@ -156,47 +151,22 @@ void Phase3::Draw()
 
 void Phase3::Timer()
 {
-	aliens.ListCollision(*dragon);
+	aliens.ListCollision(*hermes);
+	fuel.ListCollision(*hermes);
+	fuelBar.SetNum(hermes->GetFuel());
 
-	if (fuelBar.GetNum() < 0) burn = false; // if you ran out of fuel
+	if (fuelBar.GetNum() < 0) hermes->SetBurn(false); // if you ran out of fuel
 
-	if (burn) // condition of decelerating the clouds and a filter for executing the rest
-	{
-		fuelBar.Burn();
-		flame = new SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, dragon->GetPos().x, dragon->GetPos().y, 12, 15);
-		burning = true;
-		burn = false;
-		dragon->SetAcc(Vector2(0, 5));
-	}
+	if(hermes->GetAcc().y == -5) clouds.Spec(&Cloud::Accelerate);
 
-	if (burning)
-	{
-		time++;
+	eye_y = hermes->GetPos().y; //camera movement
 
-		if (time == 100)
-		{
-			dragon->SetAcc(Vector2(0, -5));
-			clouds.Spec(&Cloud::Accelerate);
-			time = 0;
-			burning = false;
-		}
-	}
-
-	y = dragon->GetPos().y; //camera movement
-
-	dragon->Move();
+	hermes->Move();
 	clouds.Move();
 	fuel.Move();
 	aliens.Move();
 
-
-	if (flame)
-	{
-		flame->setPos(dragon->GetPos().x - 5.2, dragon->GetPos().y - 14);
-		flame->loop();
-	}
-
-	if (!dragon->Alive())
+	if (!hermes->Alive())
 	{
 		fuelBar.SetNum(0);
 		gameOver = true;
@@ -209,7 +179,7 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 	{
 	case ' ':
 
-		dragon->SetAlive(false);
+		hermes->SetAlive(false);
 		break;
 	}
 }
@@ -221,28 +191,26 @@ void Phase3::SpecialKey(int key, int x, int y)
 	case GLUT_KEY_DOWN:
 
 		clouds.Spec(&Cloud::Accelerate);
-		burn = false;
 		break;
 
 	case GLUT_KEY_UP:
 
 		if (fuelBar.GetNum() > 0)
 		{
-	//		flame = new SpriteSequence("textures/phase3/flame.png", 5, 4, 50, false, -10, 7, 10, 10);
 			clouds.Spec(&Cloud::Decelerate);
-			burn = true;
+			hermes->SetBurn(true);
 		}
 
 		break;
 
 	case GLUT_KEY_LEFT:
 
-		dragon->SetAcc(Vector2(-60, dragon->GetAcc().y));
+		hermes->SetAcc(Vector2(-60, hermes->GetAcc().y));
 		break;
 
 	case GLUT_KEY_RIGHT:
 
-		dragon->SetAcc(Vector2(60, dragon->GetAcc().y));
+		hermes->SetAcc(Vector2(60, hermes->GetAcc().y));
 		break;
 
 	}
