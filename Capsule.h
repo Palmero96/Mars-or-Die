@@ -6,10 +6,9 @@
 using namespace ETSIDI;
 using ETSIDI::getTexture;
 
-class Capsule : public MovingObject
+class Capsule : public MovingObject, public Sprite
 {
-	Sprite *image;
-	SpriteSequence *explosion, *flame;
+	SpriteSequence *explosion, *flame, *flame2, *flame3;
 	int life, fuel;
 	float burnTime;
 	bool  alive, explosionStarted, burn, burning;
@@ -25,7 +24,7 @@ public:
 	void SetVel(Vector2);
 	Vector2 GetVel();
 
-	Sprite GetImage();
+	Vector2 GetSize();
 	
 	int GetLife();
 	void SetLife(int);
@@ -38,6 +37,8 @@ public:
 
 	void SetBurn(bool);
 	bool GetBurn();
+
+	SpriteSequence GetFlame();
 
 	bool GetBurning();
 };

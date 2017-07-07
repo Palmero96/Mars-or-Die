@@ -25,6 +25,9 @@ public:
 
 	void SetPos(float [], float[]);
 
-	void ListCollision(Capsule);
+	void ListCollision(Capsule &);
+	void ListBurn(SpriteSequence);
+
+	void Check();
 };
 

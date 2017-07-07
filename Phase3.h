@@ -20,6 +20,7 @@ class Phase3 : public Phase
 	List<class Cloud, 70> clouds;
 	ObstacleList fuel, aliens;
 	Capsule *hermes;
+	SpriteSequence *explosion;
 	FuelBar fuelBar;
 
 	float randomVectorX[CLOUDS];	//vectors for storing random numbers

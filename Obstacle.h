@@ -6,25 +6,23 @@
 using namespace ETSIDI;
 using ETSIDI::getTexture;
 
-class Obstacle : public MovingObject
+class Obstacle : public MovingObject, public Sprite
 {
 protected:
 
-	Sprite *image;
-	friend class Interaction;
 public:
 
-	Obstacle();
 	Obstacle(const char*);
 	~Obstacle();
 
-	virtual void Draw(Vector2 pos);
 	void Move();
-	void Draw();
 	void SetPos(float, float);
-	void SetSize(float, float);
-	bool Collision(Sprite);
 
-	Sprite getImage() { return *image; }
+	void SetAlive(bool);
+	bool GetAlive();
+
+	Vector2 GetSize();
+
+	bool alive;
 };
 

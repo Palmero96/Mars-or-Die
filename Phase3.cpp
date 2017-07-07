@@ -3,7 +3,7 @@
 Phase3::Phase3()
 {
 	eye_y = 0;					//camera parameter
-
+	explosion = NULL;
 	fuel.SetNum(0);
 	aliens.SetNum(0);
 
@@ -28,7 +28,7 @@ void Phase3::Initialize()
 		randomVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < CLOUDS; i++)
-		randomVectorY[i] = (rand() % 1700) - 2000;
+		randomVectorY[i] = (rand() % 2000) - 2500;
 
 	for (int i = 0; i < CLOUDS; i++)
 		randomCloud[i] = rand() % 5;
@@ -57,7 +57,7 @@ void Phase3::Initialize()
 	for (int i = 0; i < ALIENS; i++)
 	{
 		Obstacle *a = new Obstacle("textures/phase3/ufo.png");
-		a->SetSize(6, 2);
+		a->setSize(6, 2);
 		aliens.Add(a);
 		int n = aliens.GetNum();
 		aliens.SetNum(n++);
@@ -66,7 +66,7 @@ void Phase3::Initialize()
 	for (int i = 0; i < FUEL; i++)
 	{
 		Obstacle *gas = new Obstacle("textures/phase3/gas.png");
-		gas->SetSize(5, 5);
+		gas->setSize(5, 5);
 		fuel.Add(gas);
 		int n = fuel.GetNum();
 		fuel.SetNum(n++);
@@ -94,13 +94,16 @@ void Phase3::Draw()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/surface.png").id);
+	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
 	glTexCoord2d(1, 1);  glVertex3f(60, -170, 0);
 	glTexCoord2d(0, 1);  glVertex3f(-60, -170, 0);
 	glTexCoord2d(0, 0);  glVertex3f(-60, -230, 0);
-	glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
+	glTexCoord2d(1, 0);  glVertex3f(60, -230, 0);
 
 	glEnd();
 
@@ -119,10 +122,10 @@ void Phase3::Draw()
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/stars.png").id);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(80, 20 + hermes->GetPos().y * 0.1, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + hermes->GetPos().y * 0.1, 0);
-	glTexCoord2d(0, 0);  glVertex3f(-40, -40 + hermes->GetPos().y * 0.1, 0);
-	glTexCoord2d(1, 0);  glVertex3f(80, -40 + hermes->GetPos().y * 0.1, 0);
+	glTexCoord2d(1, 1);  glVertex3f(80, 20 + hermes->GetPos().y * 0.3, 0);
+	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + hermes->GetPos().y * 0.3, 0);
+	glTexCoord2d(0, 0);  glVertex3f(-40, -40 + hermes->GetPos().y * 0.3, 0);
+	glTexCoord2d(1, 0);  glVertex3f(80, -40 + hermes->GetPos().y * 0.3, 0);
 
 	glEnd();
 
@@ -151,8 +154,9 @@ void Phase3::Draw()
 
 void Phase3::Timer()
 {
+	aliens.ListBurn(hermes->GetFlame());
 	aliens.ListCollision(*hermes);
-	fuel.ListCollision(*hermes);
+	aliens.Check();
 	fuelBar.SetNum(hermes->GetFuel());
 
 	if (fuelBar.GetNum() < 0) hermes->SetBurn(false); // if you ran out of fuel
@@ -189,8 +193,6 @@ void Phase3::SpecialKey(int key, int x, int y)
 	switch (key)
 	{
 	case GLUT_KEY_DOWN:
-
-		clouds.Spec(&Cloud::Accelerate);
 		break;
 
 	case GLUT_KEY_UP:
@@ -200,17 +202,16 @@ void Phase3::SpecialKey(int key, int x, int y)
 			clouds.Spec(&Cloud::Decelerate);
 			hermes->SetBurn(true);
 		}
-
 		break;
 
 	case GLUT_KEY_LEFT:
 
-		hermes->SetAcc(Vector2(-60, hermes->GetAcc().y));
+		hermes->SetAcc(Vector2(-100, hermes->GetAcc().y));
 		break;
 
 	case GLUT_KEY_RIGHT:
 
-		hermes->SetAcc(Vector2(60, hermes->GetAcc().y));
+		hermes->SetAcc(Vector2(100, hermes->GetAcc().y));
 		break;
 
 	}

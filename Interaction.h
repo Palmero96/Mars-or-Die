@@ -12,6 +12,7 @@ public:
 	~Interaction();
 
 	static bool ProximityOrbit(Vector2, Vector2);
-	static bool Contact(Capsule &, Obstacle &);
+	static bool Contact(Capsule &, Obstacle&);
+	static bool AlienBurn(SpriteSequence, Obstacle&);
 };
 

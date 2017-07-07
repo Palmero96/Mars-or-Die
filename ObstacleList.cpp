@@ -2,13 +2,21 @@
 
 
 
-ObstacleList::ObstacleList()
-{
-}
+ObstacleList::ObstacleList()	{}
 
 
-ObstacleList::~ObstacleList()
+ObstacleList::~ObstacleList()	{}
+
+void ObstacleList::Check()
 {
+	for (int i = 0; i < num; i++)
+	{
+		if (list[i])
+		{
+			if (list[i]->alive == false)
+				list[i] = NULL;
+		}
+	}
 }
 
 bool ObstacleList::Add(Obstacle *c)
@@ -22,26 +30,38 @@ bool ObstacleList::Add(Obstacle *c)
 void ObstacleList::Remove()
 {
 	if (num <= 0)	return;
-	delete list[num - 1];
-	num--;
+	if (list[num])
+	{
+		delete list[num - 1];
+		num--;
+	}
 }
 
 void ObstacleList::Draw()
 {
 	for (int i = 0; i < num; i++)
-		list[i]->Draw();
+	{
+		if (list[i])
+			list[i]->draw();
+	}
 }
 
 void ObstacleList::Move()
 {
 	for (int i = 0; i < num; i++)
-		list[i]->Move();
+	{
+		if (list[i])
+			list[i]->Move();
+	}
 }
 
 void ObstacleList::DestroyContent()
 {
 	for (int i = 0; i < num; i++)
-		delete list[i];
+	{
+		if (list[i])
+			delete list[i];
+	}
 }
 
 int ObstacleList::GetNum()
@@ -57,11 +77,31 @@ void ObstacleList::SetNum(int n)
 void ObstacleList::SetPos(float vx[], float vy[])
 {
 	for (int i = 0; i < num; i++)
-		list[i]->SetPos(vx[i], vy[i]);
+	{
+		if (list[i])
+			list[i]->SetPos(vx[i], vy[i]);
+	}
 }
 
-void ObstacleList::ListCollision(Capsule c)
+void ObstacleList::ListCollision(Capsule &c)
 {
 	for (int i = 0; i < num; i++)
-		Interaction::Contact(c, *list[i]);
+	{
+		if (list[i])
+		{
+			Interaction::Contact(c, *list[i]);
+			glPopMatrix();
+		}
+
+	}
 }
+
+void ObstacleList::ListBurn(SpriteSequence f)
+{
+	for (int i = 0; i < num; i++)
+	{
+		if (list[i])
+			Interaction::AlienBurn(f, *list[i]);
+	}
+}
+

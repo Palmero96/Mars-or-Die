@@ -1,6 +1,8 @@
 #include "Interaction.h"
+#include <math.h>
+#include <cstdlib>
 
-
+using namespace std;
 
 Interaction::Interaction()
 {
@@ -26,15 +28,38 @@ bool Interaction::ProximityOrbit(Vector2 planet_pos, Vector2 ship_pos)
 
 bool Interaction::Contact(Capsule &c, Obstacle &o)
 {
-	if (o.Collision(c.GetImage()))
-	{
-		if (c.GetLife() > 1)
-			c.SetLife(c.GetLife() - 1);
+	
+	bool collisionX = c.GetPos().x + c.GetSize().x >= o.GetPos().x &&		//AABB COLLISION (https://learnopengl.com/#!In-Practice/2D-Game/Collisions/Collision-detection)
+		o.GetPos().x + o.GetSize().x >= c.GetPos().x;
+	
+	bool collisionY = c.GetPos().y + c.GetSize().y - 1>= o.GetPos().y &&
+		o.GetPos().y + o.GetSize().y - 1>= c.GetPos().y;
 
+	if(collisionX && collisionY)
+	{
+		o.SetAlive(false);
+		if (c.GetLife() > 1)	c.SetLife(c.GetLife() - 1);
 		else c.SetAlive(false);
 
 		return true;
 	}
 	else
 		return false;
+	}
+
+bool Interaction::AlienBurn(SpriteSequence flame, Obstacle &alien)
+{
+	bool collisionX = flame.getPos().x + 7 >= alien.GetPos().x &&		
+		alien.GetPos().x + alien.GetSize().x >= flame.getPos().x;
+	
+	bool collisionY = flame.getPos().y + 9 >= alien.GetPos().y &&
+		alien.GetPos().y + alien.GetSize().y - 1 >= flame.getPos().y;
+	
+	if (collisionX && collisionY)
+	{
+		alien.SetAlive(false);
+		return true;
+
+	}
+	else return false;	
 }

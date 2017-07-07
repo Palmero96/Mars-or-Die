@@ -1,73 +1,48 @@
 #include "Obstacle.h"
 
+Obstacle::~Obstacle()	{}
 
-
-Obstacle::Obstacle()
-{
-	acc.x = 0;
-	acc.y = 5;
-
-	vel.x = 0;
-	vel.y = 30;
-}
-
-
-Obstacle::~Obstacle()
-{
-	//delete image;
-}
-
-void Obstacle::SetSize(float w, float h)
-{
-	image->setSize(w, h);
-}
-
-Obstacle::Obstacle(const char *name)
+Obstacle::Obstacle(const char *name) : Sprite (name, position.x, position.y, 0, 0)
 {
 	acc.x = 0;
 	acc.y = 0;
 
-	vel.x = 0;
-	vel.y = 30;
-	image = new ETSIDI::Sprite(name, position.x, position.y, 20, 20);
+	MovingObject::vel.x = 0;
+	MovingObject::vel.y = 30;
+
+	alive = true;
 }
-
-
-void Obstacle::Draw(Vector2 pos)
-{
-
-}
-
-void Obstacle::Draw()	{ image->draw(); }
 
 void Obstacle::SetPos(float x, float y)
 {
 	position.x = x;
 	position.y = y;
-	image->setPos(x, y);
+	setPos(x, y);
 }
 
 void Obstacle::Move()
 {
 	float t = 0.025;
 
-	if (vel.y > 30)
+	if (MovingObject::vel.y > 30)
 	{
-		vel.y = 30;
+		MovingObject::vel.y = 30;
 		acc.y = 5;
 	}
 
-	if (vel.y < -60)
+	if (MovingObject::vel.y < -60)
 	{
-		vel.y = -60;
+		MovingObject::vel.y = -60;
 		acc.y = -5;
 	}
 
 	MovingObject::Move();
-	image->setPos(position.x, position.y);
+	setPos(position.x, position.y);
 }
 
-bool Obstacle::Collision(Sprite s)
-{
-	return image->collides(s);
-}
+
+void Obstacle::SetAlive(bool b) { alive = b; }
+
+bool Obstacle::GetAlive() { return alive; }
+
+Vector2 Obstacle::GetSize() { return Vector2(_width, _height); }
