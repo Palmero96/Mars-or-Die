@@ -115,8 +115,8 @@ void Cloud::Move()
 
 void Cloud::Decelerate()
 {
-	if (vel.y > 15)
-		acc.y = -20;
+	if (vel.y > 40)
+		acc.y = -5;
 	else acc.y = 0;
 }
 

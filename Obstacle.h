@@ -10,6 +10,8 @@ class Obstacle : public MovingObject, public Sprite
 {
 protected:
 
+	bool damage;		//aliens have damage true and fuel has damage false
+
 public:
 
 	Obstacle(const char*);
@@ -20,6 +22,9 @@ public:
 
 	void SetAlive(bool);
 	bool GetAlive();
+
+	void SetNature(bool);
+	bool GetNature();
 
 	Vector2 GetSize();
 

@@ -19,6 +19,7 @@ public:
 	~Capsule();
 
 	void Move();
+	void Land();
 	void Draw();
 
 	void SetVel(Vector2);

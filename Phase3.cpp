@@ -6,12 +6,20 @@ Phase3::Phase3()
 	explosion = NULL;
 	fuel.SetNum(0);
 	aliens.SetNum(0);
-
-	burning = gameOver = false;
+	surfacePos = -195;
+	landPos = -215;
+	burning = sound = radio_sound = false;
+	gameStatus = 3;
 
 	hermes = new Capsule("textures/phase3/nave.png");
 
+	landingPad = new SpriteSequence("textures/phase3/landingPad.png", 2, 1, 1000, true, 0, landPos, 20, 8);
+	landingPad->flip(false, true);
+
+	landingZone = new Sprite("textures/phase3/landZone.png", 0, landPos,0,0);
+	landingZone->setSize(80, 39);
 	fuelBar.SetNum(hermes->GetFuel());
+	lifeBar.SetNum(hermes->GetLife());
 }
 
 Phase3::~Phase3()
@@ -28,7 +36,7 @@ void Phase3::Initialize()
 		randomVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < CLOUDS; i++)
-		randomVectorY[i] = (rand() % 2000) - 2500;
+		randomVectorY[i] = (rand() % 2000) - 2200;
 
 	for (int i = 0; i < CLOUDS; i++)
 		randomCloud[i] = rand() % 5;
@@ -46,18 +54,19 @@ void Phase3::Initialize()
 		randomAlienVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < ALIENS; i++)
-		randomAlienVectorY[i] = (rand() % 1000) - 1500;
+		randomAlienVectorY[i] = (rand() % 1500) - 1700;
 
 	for (int i = 0; i < FUEL; i++)
 		randomFuelVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < FUEL; i++)
-		randomFuelVectorY[i] = (rand() % 1000) - 1500;
+		randomFuelVectorY[i] = (rand() % 1600) - 1800;
 
 	for (int i = 0; i < ALIENS; i++)
 	{
 		Obstacle *a = new Obstacle("textures/phase3/ufo.png");
 		a->setSize(6, 2);
+		a->SetNature(true);
 		aliens.Add(a);
 		int n = aliens.GetNum();
 		aliens.SetNum(n++);
@@ -67,6 +76,7 @@ void Phase3::Initialize()
 	{
 		Obstacle *gas = new Obstacle("textures/phase3/gas.png");
 		gas->setSize(5, 5);
+		gas->SetNature(false);
 		fuel.Add(gas);
 		int n = fuel.GetNum();
 		fuel.SetNum(n++);
@@ -79,35 +89,29 @@ void Phase3::Initialize()
 void Phase3::Draw()
 {
 	fuelBar.Draw();
+	lifeBar.Draw();
 
-	if (eye_y < -132) eye_y = -132;
+	if (eye_y < -130) eye_y = -130;
 
 	gluLookAt(0, eye_y - 13, 40,  // posicion del ojo
 		0.0, eye_y - 13, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
+	
 	fuel.Draw();
 	aliens.Draw();
 	hermes->Draw();
+
+	landingPad->draw();
+	landingPad->setAngle(180);
+	landingZone->draw();
 
 	glDepthMask(GL_FALSE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/surface.png").id);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(60, -170, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-60, -170, 0);
-	glTexCoord2d(0, 0);  glVertex3f(-60, -230, 0);
-	glTexCoord2d(1, 0);  glVertex3f(60, -230, 0);
 
-	glEnd();
-
-	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/transition.png").id);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
@@ -122,25 +126,28 @@ void Phase3::Draw()
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/stars.png").id);
 	glBegin(GL_POLYGON);
 	glColor3f(1, 1, 1);
-	glTexCoord2d(1, 1);  glVertex3f(80, 20 + hermes->GetPos().y * 0.3, 0);
-	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + hermes->GetPos().y * 0.3, 0);
 	glTexCoord2d(0, 0);  glVertex3f(-40, -40 + hermes->GetPos().y * 0.3, 0);
 	glTexCoord2d(1, 0);  glVertex3f(80, -40 + hermes->GetPos().y * 0.3, 0);
+	glTexCoord2d(1, 1);  glVertex3f(80, 20 + hermes->GetPos().y * 0.3, 0);
+	glTexCoord2d(0, 1);  glVertex3f(-40, 20 + hermes->GetPos().y * 0.3, 0);
 
 	glEnd();
-
-	//glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/glow.png").id);
-	//glBegin(GL_POLYGON);
-	//glColor3f(1, 1, 1);
-	//glTexCoord2d(1, 1);  glVertex3f(60, -140, 0);
-	//glTexCoord2d(0, 1);  glVertex3f(-60, -140, 0);
-	//glTexCoord2d(0, 0);  glVertex3f(-60, -200, 0);
-	//glTexCoord2d(1, 0);  glVertex3f(60, -200, 0);
-
-	//glEnd();	
-
+	if (hermes->GetPos().y < -100)
+	{
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase3/surface.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-48, surfacePos, 0);
+		glTexCoord2d(1, 0);  glVertex3f(48, surfacePos, 0);
+		glTexCoord2d(1, 1);  glVertex3f(48, surfacePos + 70, 0);
+		glTexCoord2d(0, 1);  glVertex3f(-48, surfacePos + 70, 0);
+		glEnd();
+	}
 
 	clouds.Draw();
+
+	
 
 	glDisable(GL_BLEND); // VERY IMPORTANT! DON'T CHANGE THE ORTHER OF THESE FUNCTIONS BELOW (or the Vogons will come to read us their poetry...)
 	glDepthMask(GL_TRUE);
@@ -150,30 +157,91 @@ void Phase3::Draw()
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+
+	if (gameStatus == 1)
+	{
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fonts/nasalization-rg.ttf", 40);
+		ETSIDI::printxy("mission completed!", -15 , hermes->GetPos().y + 10);
+	}
+	if (gameStatus == 0)
+	{
+		ETSIDI::setTextColor(1, 0, 0);
+		ETSIDI::setFont("fonts/nasalization-rg.ttf", 40);
+		ETSIDI::printxy("mission failed!", -15, hermes->GetPos().y);
+	}
+
 }
 
 void Phase3::Timer()
 {
-	aliens.ListBurn(hermes->GetFlame());
-	aliens.ListCollision(*hermes);
-	aliens.Check();
+	if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y >-2)
+	{
+			hermes->Land();
+			gameStatus = 1;
+			if (!radio_sound)
+			{
+				ETSIDI::play("music/radio.wav");
+				radio_sound = true;
+			}
+	}
+
+	else
+	{
+		if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y < -2)
+			hermes->SetAlive(false);
+
+		aliens.ListBurn(hermes->GetFlame());
+		aliens.ListCollision(*hermes);
+		fuel.ListCollision(*hermes);
+
+		if (Interaction::Contact(*hermes, *landingZone))	hermes->SetAlive(false);
+
+		cout << hermes->GetPos().y << "		" << landingPad->getPos().y  << endl;
+
+		aliens.Check(); 
+		fuel.Check();
+		fuelBar.SetNum(hermes->GetFuel());
+		lifeBar.SetNum(hermes->GetLife());
+
+		if (fuelBar.GetNum() < 0) hermes->SetBurn(false); // if you ran out of fuel
+
+		if (hermes->GetAcc().y == -5) clouds.Spec(&Cloud::Accelerate);
+
+		eye_y = hermes->GetPos().y; //camera movement
+
+		hermes->Move();
+		clouds.Move();
+		fuel.Move();
+		aliens.Move();
+		
+
+		if (hermes->GetPos().y < -110 && hermes->GetPos().y > -143 && gameStatus != 0)
+			surfacePos -= hermes->GetVel().y * 0.02;
+
+		if (hermes->GetPos().y < -143 && hermes->GetPos().y > -151 && gameStatus != 0)
+		{
+			landPos -= hermes->GetVel().y * 0.1;
+			landingZone->setPos(-35, landPos);
+			landingPad->setPos(6, landPos + 39);
+		}
+	}
+
+	fuel.Check();
 	fuelBar.SetNum(hermes->GetFuel());
-
-	if (fuelBar.GetNum() < 0) hermes->SetBurn(false); // if you ran out of fuel
-
-	if(hermes->GetAcc().y == -5) clouds.Spec(&Cloud::Accelerate);
-
-	eye_y = hermes->GetPos().y; //camera movement
-
-	hermes->Move();
-	clouds.Move();
-	fuel.Move();
-	aliens.Move();
+	landingPad->loop();
 
 	if (!hermes->Alive())
 	{
 		fuelBar.SetNum(0);
-		gameOver = true;
+		lifeBar.SetNum(0);
+		gameStatus = 0;
+
+		if (!sound)
+		{
+			ETSIDI::play("music/capsuleExplosion.wav");
+			sound = true;
+		}
 	}
 }
 
@@ -182,10 +250,19 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 	switch (key)
 	{
 	case ' ':
-
+		if(gameStatus!=1)
 		hermes->SetAlive(false);
 		break;
+
+	case 'f':
+		if(hermes->GetFuel()<7)hermes->SetFuel(hermes->GetFuel() + 1);
+		hermes->SetLife(3);
+		ETSIDI::play("music/cheat.wav");
+		break;
+	case 'q':
+		hermes->SetPos(Vector2(0, -130));
 	}
+
 }
 
 void Phase3::SpecialKey(int key, int x, int y)
@@ -199,7 +276,7 @@ void Phase3::SpecialKey(int key, int x, int y)
 
 		if (fuelBar.GetNum() > 0)
 		{
-			clouds.Spec(&Cloud::Decelerate);
+	//		clouds.Spec(&Cloud::Decelerate);
 			hermes->SetBurn(true);
 		}
 		break;
@@ -218,4 +295,4 @@ void Phase3::SpecialKey(int key, int x, int y)
 
 }
 
-bool Phase3::GameOver() { return gameOver; }
+int Phase3::GameOver() {return gameStatus;}

@@ -46,3 +46,7 @@ void Obstacle::SetAlive(bool b) { alive = b; }
 bool Obstacle::GetAlive() { return alive; }
 
 Vector2 Obstacle::GetSize() { return Vector2(_width, _height); }
+
+bool Obstacle::GetNature() { return damage; }
+
+void Obstacle::SetNature(bool b) { damage = b; }

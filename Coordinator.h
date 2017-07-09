@@ -17,12 +17,14 @@ class Coordinator
 	State phase;
 	State prevState;	// works as an auxiliar state for the pause implementation
 
-	bool p;   // setting the pause state with only one key
+	bool p, a,b,c;   // setting the pause state with only one key
+	float t;
 
 public:
 
 	void Draw();
 	void Timer();
+	void Music();
 	void Key(unsigned char key, int x_t, int y_t);
 	void ArrowKey(int key, int x, int y);
 

@@ -63,7 +63,10 @@ template <class T, int max> void List<T, max>::Move()
 template <class T, int max> void List<T, max>::DestroyContent()
 {
 	for (int i = 0; i < num; i++)
-		delete list[i];
+	{
+		if (list[i])
+			delete list[i];
+	}
 }
 
 template <class T, int max> void List<T, max>::Remove()

@@ -6,14 +6,17 @@
 #include "Cloud.h"
 #include "Capsule.h"
 #include "List.h"
+#include "Life.h" 
+#include <iostream>
 #include "ETSIDI.h"
 
 using namespace ETSIDI;
+using namespace std;
 using ETSIDI::getTexture;
 
 #define CLOUDS 80
-#define ALIENS 20
-#define FUEL 15
+#define ALIENS 70
+#define FUEL 10
 
 class Phase3 : public Phase
 {
@@ -22,6 +25,7 @@ class Phase3 : public Phase
 	Capsule *hermes;
 	SpriteSequence *explosion;
 	FuelBar fuelBar;
+	Life lifeBar;
 
 	float randomVectorX[CLOUDS];	//vectors for storing random numbers
 	float randomVectorY[CLOUDS];
@@ -31,11 +35,17 @@ class Phase3 : public Phase
 	float randomFuelVectorY[FUEL];
 	float randomCloud[CLOUDS];
 
-	bool burning, gameOver;
+	Sprite *landingZone;
+	SpriteSequence *landingPad;
+
+	bool burning;
+	int gameStatus;
 
 	int time;
 	float eye_y;
+	float surfacePos, landPos;
 
+	bool sound, radio_sound;
 
 public:
 
@@ -48,6 +58,6 @@ public:
 	void Key(unsigned char key, int x_t, int y_t);
 	void SpecialKey(int key, int x, int y);
 
-	bool GameOver();
+	int GameOver();
 };
 

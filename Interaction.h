@@ -6,6 +6,7 @@
 
 class Interaction
 {
+
 public:
 
 	Interaction();
@@ -14,5 +15,7 @@ public:
 	static bool ProximityOrbit(Vector2, Vector2);
 	static bool Contact(Capsule &, Obstacle&);
 	static bool AlienBurn(SpriteSequence, Obstacle&);
+	static bool Contact(Capsule &c, SpriteSequence);
+	static bool Contact(Capsule &c, Sprite);
 };
 

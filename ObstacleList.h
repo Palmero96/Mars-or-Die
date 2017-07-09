@@ -8,6 +8,7 @@
 class ObstacleList
 {
 	Obstacle *list[MAXIMUM];
+	SpriteSequence *explosion;
 	int num;
 
 public:

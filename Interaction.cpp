@@ -36,13 +36,7 @@ bool Interaction::Contact(Capsule &c, Obstacle &o)
 		o.GetPos().y + o.GetSize().y - 1>= c.GetPos().y;
 
 	if(collisionX && collisionY)
-	{
-		o.SetAlive(false);
-		if (c.GetLife() > 1)	c.SetLife(c.GetLife() - 1);
-		else c.SetAlive(false);
-
 		return true;
-	}
 	else
 		return false;
 	}
@@ -57,9 +51,36 @@ bool Interaction::AlienBurn(SpriteSequence flame, Obstacle &alien)
 	
 	if (collisionX && collisionY)
 	{
-		alien.SetAlive(false);
+		
 		return true;
 
 	}
 	else return false;	
+}
+
+bool Interaction::Contact(Capsule &c, SpriteSequence landPad)
+{
+	bool collisionX = c.GetPos().x + 4 >= landPad.getPos().x - 10 &&
+				      c.GetPos().x - 4 <= landPad.getPos().x + 10;
+
+	bool collisionY = c.GetPos().y <= landPad.getPos().y + 1.5;
+
+	if (collisionX && collisionY)	return true;
+
+	else return false;
+}
+
+bool Interaction::Contact(Capsule &c, Sprite land)
+{
+	bool collisionY = c.GetPos().y <= -154;
+
+	bool collision_X = c.GetPos().x + 4 >= - 10 &&
+		c.GetPos().x - 4 <=  10;
+
+	bool collision_Y = c.GetPos().y <= - 153.8;
+
+	if (collisionY || (collision_X && collision_Y))	
+		return true;
+
+	else return false;
 }

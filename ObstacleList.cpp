@@ -2,10 +2,10 @@
 
 
 
-ObstacleList::ObstacleList()	{}
+ObstacleList::ObstacleList() { explosion = 0; }
 
 
-ObstacleList::~ObstacleList()	{}
+ObstacleList::~ObstacleList() {}
 
 void ObstacleList::Check()
 {
@@ -39,6 +39,9 @@ void ObstacleList::Remove()
 
 void ObstacleList::Draw()
 {
+	if (explosion)
+		explosion->draw();
+	
 	for (int i = 0; i < num; i++)
 	{
 		if (list[i])
@@ -48,6 +51,8 @@ void ObstacleList::Draw()
 
 void ObstacleList::Move()
 {
+	if (explosion)
+		explosion->loop();
 	for (int i = 0; i < num; i++)
 	{
 		if (list[i])
@@ -89,8 +94,29 @@ void ObstacleList::ListCollision(Capsule &c)
 	{
 		if (list[i])
 		{
-			Interaction::Contact(c, *list[i]);
-			glPopMatrix();
+			if (Interaction::Contact(c, *list[i]))
+			{
+				if (list[i]->GetNature())	// the boolean damage is true so it's an alien
+				{
+					explosion = new SpriteSequence("textures/phase3/alienExplosion2.png", 4, 4, 50,
+						false, list[i]->GetPos().x + 1, list[i]->GetPos().y + 1, 7, 5);
+
+					list[i]->SetAlive(false);
+					ETSIDI::play("music/alienExplosion.wav");
+
+					if (c.GetLife() > 1)	c.SetLife(c.GetLife() - 1);
+
+					else c.SetAlive(false);
+				}
+
+				else	// the boolean damage is false so its fuel
+				{
+					list[i]->SetAlive(false);
+					ETSIDI::play("music/fuel.wav");
+					if (c.GetFuel() < 7)
+						c.SetFuel(c.GetFuel() + 1);
+				}
+			}
 		}
 
 	}
@@ -101,7 +127,20 @@ void ObstacleList::ListBurn(SpriteSequence f)
 	for (int i = 0; i < num; i++)
 	{
 		if (list[i])
-			Interaction::AlienBurn(f, *list[i]);
+		{
+			if (Interaction::AlienBurn(f, *list[i]))
+			{
+				if (f.getState() < 19)
+				{
+					explosion = new SpriteSequence("textures/phase3/alienExplosion.png", 4, 4, 50,
+						false, list[i]->GetPos().x + 1, list[i]->GetPos().y + 1, 7, 5);
+
+					ETSIDI::play("music/alienKilled.wav");
+					list[i]->SetAlive(false);
+				}
+			}
+
+		}
 	}
 }
 

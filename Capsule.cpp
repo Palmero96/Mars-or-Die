@@ -61,10 +61,11 @@ void Capsule::Draw()
 		}
 	}
 
-	if (explosion)	explosion->draw();
+	if (explosion)
+	{
+		explosion->draw();
 
-
-	
+	}
 
 	if (burn)
 	{
@@ -76,18 +77,18 @@ void Capsule::Draw()
 		fuel--;
 		burn = false;
 		burning = true;
-		acc = Vector2(0, 5);
+		acc = Vector2(0, 3.5);
 
-
+		ETSIDI::play("music/burn.wav");
 	}
 
 	if (burning)
 	{
 		burnTime++;
 
-		if (burnTime >= 100)
+		if (burnTime >= 35)
 		{
-			acc = Vector2(0, -5);
+			acc = Vector2(0, -3);
 			burnTime = 0;
 			burning = false;
 		}
@@ -97,30 +98,42 @@ void Capsule::Draw()
 
 void Capsule::Move()
 {
-	if (MovingObject::vel.y > 3)	MovingObject::vel.y = 3;
+	if (alive)
+	{
+		if (MovingObject::vel.y < -3)	MovingObject::vel.y = -3;
 
-	if (MovingObject::vel.y <-3)	MovingObject::vel.y = -3;
+		if (MovingObject::vel.x > 30)	MovingObject::vel.x = 30;
 
-	if (MovingObject::vel.x > 30)	MovingObject::vel.x = 30;
+		if (MovingObject::vel.x < -30)	MovingObject::vel.x = -30;
 
-	if (MovingObject::vel.x <-30)	MovingObject::vel.x = -30;
 
-	
-	if (position.x <= -50)
-		position.x = 50;
-	if (position.x > 50)
-		position.x = -50;
+		if (position.x <= -50)
+			position.x = 50;
+		if (position.x > 50)
+			position.x = -50;
 
-	float t = 0.025;
+		float t = 0.025;
 
-	position = position + MovingObject::vel * t + (acc)* t * t;
-	MovingObject::vel = MovingObject::vel + acc * t;
+		position = position + MovingObject::vel * t + (acc)* t * t;
+		MovingObject::vel = MovingObject::vel + acc * t;
 
-	setPos(position.x, position.y);
+		setPos(position.x, position.y);
 
+		if (flame)
+		{
+			flame->loop();
+			flame2->loop();
+			flame3->loop();
+		}
+	}
 	if (explosion)
 		explosion->loop();
+}
 
+void Capsule::Land()
+{
+	MovingObject::vel = Vector2(0, 0);
+	fuel--;
 	if (flame)
 	{
 		flame->loop();

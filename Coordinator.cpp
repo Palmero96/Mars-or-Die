@@ -3,9 +3,9 @@
 Coordinator::Coordinator()
 {
 	phase = HOME;
-	p = false;
+	p = a = b = c = false;
+	t = 0;
 }
-
 
 Coordinator::~Coordinator() {}
 
@@ -43,7 +43,48 @@ void Coordinator::Draw()
 		phase3.Draw();
 		break;
 
+	case GAME_OVER:
+
+		break;
+
 	default: break;
+	}
+}
+
+void Coordinator::Music()
+{
+	switch (phase)
+	{
+	case HOME:
+		break;
+
+	case FIRST_PHASE:
+		break;
+
+	case SECOND_PHASE:
+		break;
+
+	case THIRD_PHASE:
+		if (!a)
+		{
+			ETSIDI::playMusica("music/phase3_song.mp3", false);
+			a = true;
+		}
+		switch (phase3.GameOver())
+		{
+
+		case 1:
+			if(!b)
+			{
+				ETSIDI::playMusica("music/final_song.mp3", false);
+				b = true;
+			}
+			break;
+		default:
+			break;
+		}
+
+		break;
 	}
 }
 
@@ -68,6 +109,20 @@ void Coordinator::Timer()
 	case THIRD_PHASE:
 
 		phase3.Timer();
+
+		switch (phase3.GameOver())
+		{
+			case 0:
+				t += 0.025;
+					if(t>5)
+				phase = GAME_OVER;
+				break;
+			case 1:		
+				break;
+			default:
+				break;
+		}
+
 		break;
 	}
 }
