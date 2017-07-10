@@ -91,3 +91,9 @@ June 26th 2017
    - Explosion implemented in the capsule of phase 3
    - Interactions between the capsule and aliens implemented
    - Now the aliens are cooler (The UFOs have 'VOGONS FLEET' written on front)
+   
+ July 10th 2017
+   - The phase 3 is completed, with all sounds and interactions done.
+   - You can kill aliens by turning on the engine and standing above them.
+   - The lifes left are shown in the upper right corner.
+   - Phase 1 has been updated, so the game story is shown first and then the game begins.
