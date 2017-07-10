@@ -5,7 +5,6 @@
 
 class Window
 {
-	char* text;
 	int x, y;
 
 public:

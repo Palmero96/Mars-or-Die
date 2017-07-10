@@ -2,7 +2,7 @@
 
 
 
-void Window::Draw(float x, float y, int n) // X position, Y position, Kind of window
+void Window::Draw(float x, float y, int n) // X position, Y position, kind of window
 {
 	glPushMatrix();
 	glTranslatef(0, 0, -1);
@@ -43,8 +43,9 @@ void Window::Draw(float x, float y, int n) // X position, Y position, Kind of wi
 		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
 		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
 		break;
+
 	case 3:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase1/houston2.png").id);
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase1/houston3.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
@@ -53,6 +54,32 @@ void Window::Draw(float x, float y, int n) // X position, Y position, Kind of wi
 		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
 		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
 		break;
+
+	case 4:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase1/houston4.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, y - 0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, y - 0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
+		break;
+
+	case 5:		// HOUSTON INCOMING MESSAGE - Y VALUE BETWEEN 0 & 0.5
+		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("textures/phase1/houston5.png").id);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3f(1, 1, 1);
+		glTexCoord2d(0, 0);  glVertex3f(-1.1, y - 0.3, 0);	// bottom left
+		glTexCoord2d(1, 0);  glVertex3f(1.1, y - 0.3, 0); // bottom right
+		glTexCoord2d(1, 1);  glVertex3f(1.1, y - 0.55, 0);	// top right
+		glTexCoord2d(0, 1);  glVertex3f(-1.1, y - 0.55, 0);// top left
+		break;
+
+	default:
+		break;
+
 	}
 
 	glEnd();

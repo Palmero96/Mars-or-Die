@@ -29,6 +29,11 @@ void Coordinator::Draw()
 		break;
 
 	case FIRST_PHASE:
+		if (!c)
+		{
+			ETSIDI::playMusica("music/home_song.mp3", true);
+			c = true;
+		}
 
 		phase1.Draw();
 		break;
@@ -98,7 +103,7 @@ void Coordinator::Timer()
 	case FIRST_PHASE:
 
 		phase1.Timer();
-		if (phase1.GetSuccess())	phase1.CloseUp();
+		if (phase1.GetStatus())	phase = SECOND_PHASE;
 		break;
 
 	case SECOND_PHASE:
@@ -118,8 +123,6 @@ void Coordinator::Timer()
 				phase = GAME_OVER;
 				break;
 			case 1:		
-				break;
-			default:
 				break;
 		}
 

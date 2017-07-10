@@ -15,7 +15,7 @@ using namespace std;
 using ETSIDI::getTexture;
 
 #define CLOUDS 80
-#define ALIENS 70
+#define ALIENS 90
 #define FUEL 10
 
 class Phase3 : public Phase
@@ -39,7 +39,6 @@ class Phase3 : public Phase
 	SpriteSequence *landingPad;
 
 	bool burning;
-	int gameStatus;
 
 	int time;
 	float eye_y;
@@ -57,7 +56,5 @@ public:
 	void Initialize();
 	void Key(unsigned char key, int x_t, int y_t);
 	void SpecialKey(int key, int x, int y);
-
-	int GameOver();
 };
 

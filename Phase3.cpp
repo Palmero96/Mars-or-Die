@@ -9,7 +9,7 @@ Phase3::Phase3()
 	surfacePos = -195;
 	landPos = -215;
 	burning = sound = radio_sound = false;
-	gameStatus = 3;
+	game_over = game_status = false;
 
 	hermes = new Capsule("textures/phase3/nave.png");
 
@@ -54,7 +54,7 @@ void Phase3::Initialize()
 		randomAlienVectorX[i] = (rand() % 110) - 60;
 
 	for (int i = 0; i < ALIENS; i++)
-		randomAlienVectorY[i] = (rand() % 1500) - 1700;
+		randomAlienVectorY[i] = (rand() % 1300) - 1500;
 
 	for (int i = 0; i < FUEL; i++)
 		randomFuelVectorX[i] = (rand() % 110) - 60;
@@ -158,13 +158,13 @@ void Phase3::Draw()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	if (gameStatus == 1)
+	if (game_status)
 	{
 		ETSIDI::setTextColor(1, 1, 1);
 		ETSIDI::setFont("fonts/nasalization-rg.ttf", 40);
-		ETSIDI::printxy("mission completed!", -15 , hermes->GetPos().y + 10);
+		ETSIDI::printxy("mission completed!", -15 , hermes->GetPos().y + 15);
 	}
-	if (gameStatus == 0)
+	if (game_over)
 	{
 		ETSIDI::setTextColor(1, 0, 0);
 		ETSIDI::setFont("fonts/nasalization-rg.ttf", 40);
@@ -178,7 +178,7 @@ void Phase3::Timer()
 	if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y >-2)
 	{
 			hermes->Land();
-			gameStatus = 1;
+			game_status = true;
 			if (!radio_sound)
 			{
 				ETSIDI::play("music/radio.wav");
@@ -216,10 +216,10 @@ void Phase3::Timer()
 		aliens.Move();
 		
 
-		if (hermes->GetPos().y < -110 && hermes->GetPos().y > -143 && gameStatus != 0)
+		if (hermes->GetPos().y < -110 && hermes->GetPos().y > -143 && !game_over)
 			surfacePos -= hermes->GetVel().y * 0.02;
 
-		if (hermes->GetPos().y < -143 && hermes->GetPos().y > -151 && gameStatus != 0)
+		if (hermes->GetPos().y < -143 && hermes->GetPos().y > -151 && !game_over)
 		{
 			landPos -= hermes->GetVel().y * 0.1;
 			landingZone->setPos(-35, landPos);
@@ -235,7 +235,7 @@ void Phase3::Timer()
 	{
 		fuelBar.SetNum(0);
 		lifeBar.SetNum(0);
-		gameStatus = 0;
+		game_over = true;
 
 		if (!sound)
 		{
@@ -250,7 +250,7 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 	switch (key)
 	{
 	case ' ':
-		if(gameStatus!=1)
+		if(!game_over)
 		hermes->SetAlive(false);
 		break;
 
@@ -259,6 +259,7 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 		hermes->SetLife(3);
 		ETSIDI::play("music/cheat.wav");
 		break;
+
 	case 'q':
 		hermes->SetPos(Vector2(0, -130));
 	}
@@ -274,11 +275,7 @@ void Phase3::SpecialKey(int key, int x, int y)
 
 	case GLUT_KEY_UP:
 
-		if (fuelBar.GetNum() > 0)
-		{
-	//		clouds.Spec(&Cloud::Decelerate);
-			hermes->SetBurn(true);
-		}
+		if (fuelBar.GetNum() > 0)	hermes->SetBurn(true);
 		break;
 
 	case GLUT_KEY_LEFT:
@@ -294,5 +291,3 @@ void Phase3::SpecialKey(int key, int x, int y)
 	}
 
 }
-
-int Phase3::GameOver() {return gameStatus;}

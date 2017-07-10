@@ -20,8 +20,8 @@ class Phase1 : public Phase
 	Vector2 z;
 	float x_eye, y_eye, z_eye, ang;
 	float x_look, y_look, z_look;
-	bool sloMo, success, flag;
-	int w; // window
+	bool sloMo, flag;
+	int w, q; // window
 
 public:
 
@@ -33,7 +33,6 @@ public:
 	void Timer();
 	void Key(unsigned char key, int x_t, int y_t);
 	void CloseUp();
-	bool GetSuccess();
 
 	float GetEye(char c);
 };

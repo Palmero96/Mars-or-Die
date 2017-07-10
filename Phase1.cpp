@@ -10,8 +10,8 @@ Phase1::Phase1()
 {
 	ship = 0;
 	ang = 0;
-	success = false;
-	w = 0;
+	game_status = 0;
+	w = q =0;
 }
 
 Phase1::~Phase1() { delete ship; }
@@ -29,33 +29,60 @@ void Phase1::Initialize() {
 	y_look = -90;
 	z_look = 30;
 
-	//Inicializador del sol
 	sun.SetColor(1.0F, 1.0F, 1.0F);
 	sun.SetRadius(20);
-	//Se inicializa la tierra
+	
 	earth.SetIni(1.0F, 1.0F, 1.0F, 6, 200, EARTH);//4.5
-												  //Se inicializa marte
+												 
 	mars.SetIni(1.0F, 1.0F, 1.0F, 5.5, 320, MARS);//3
-												  //Se inicializa mercurio
+												 
 	mercury.SetIni(1.0F, 1.0F, 1.0F, 3.5, 30, MERCURY);//2
 													   //Se inicializa venus
 	venus.SetIni(1.0F, 1.0F, 1.0F, 2, 60, VENUS);//2.8
 
-	ETSIDI::playMusica("music/home_song.mp3", true);
+	
 
 }
 
 void Phase1::Draw()
 {
-	if (y_eye < 15)  window.Draw(0, 0, 3);
+	if (y_eye < 15)
+	{
+		switch (q)
+		{
+		case 0:
+			window.Draw(0, 0, 3);
+			break;
+		case 1:
+			window.Draw(0, 0, 4);
+			break;
+		case 2:
+			window.Draw(0, 0, 5);
+			break;
+		}
+		
+	}
 
-	if (w == 0)
-		w1.Draw(0, 0, 0);
-	if (w == 1)
-		w1.Draw(0, 0, 1);
-	if (w == 2)
-		w1.Draw(0, 0, 2);
+	if (y_eye > 15)
+	{
+		switch (w)
+		{
+		case 0:
+			w1.Draw(0, 0, 0);
+			break;
 
+		case 1:
+			w1.Draw(0, 0, 1);
+			break;
+
+		case 2:
+			w1.Draw(0, 0, 2);
+			break;
+
+		default:
+			break;
+		}
+	}
 
 	gluLookAt(x_eye, y_eye, z_eye,  // posicion del ojo
 		x_look, y_look, z_look,      // hacia que punto mira  (0,0,0) 
@@ -112,7 +139,7 @@ void Phase1::Timer()
 		if (ship->GetOrbit())
 		{
 			ship->OrbitAround(mars.GetPos()); // with this condition on you are able to pass to the next phase
-			success = true;
+			CloseUp();
 			x_look = mars.GetPos().x;
 			z_look = mars.GetPos().y;
 			y_look = 0;
@@ -120,6 +147,9 @@ void Phase1::Timer()
 			mars.SetOmega(MARS);
 			mercury.SetOmega(MERCURY);
 			venus.SetOmega(VENUS);
+
+			if (q >= 2 && mars.GetPos().x > -10 && mars.GetPos().x < 0 && mars.GetPos().y > 310)
+				game_status = true;
 		}
 		else
 			ship->Move();
@@ -141,42 +171,38 @@ void Phase1::CloseUp()
 		z_eye--;
 }
 
-bool Phase1::GetSuccess()
-{
-	return success;
-}
-
 void Phase1::Key(unsigned char key, int x_t, int y_t)
 {
 	if (key == ' ')
 	{
-		if (!sloMo)
-		{
-			sloMo = true;
-			ship = new Ship;
-			ship->SetPos(earth.GetPos());
-			ship->SetOmega(earth.GetOmega());
-			ship->GetAV(mars.GetPos());
-			earth.SetOmega(EARTH * 0.1);
-			mars.SetOmega(MARS * 0.1);
-			venus.SetOmega(VENUS * 0.1);
-			mercury.SetOmega(MERCURY * 0.1);
-		}
-		else
-		{
-			sloMo = false;
-			earth.SetOmega(EARTH);
-			mars.SetOmega(MARS);
-			mercury.SetOmega(MERCURY);
-			venus.SetOmega(VENUS);
-			ship->SetT(2.5);
-		}
-
-	}
-
-	if (key == 'k')
-	{
 		w++;
+
+		if (w > 3 && y_eye > 15)
+		{
+			if (!sloMo)
+			{
+				sloMo = true;
+				ship = new Ship;
+				ship->SetPos(earth.GetPos());
+				ship->SetOmega(earth.GetOmega());
+				ship->GetAV(mars.GetPos());
+				earth.SetOmega(EARTH * 0.1);
+				mars.SetOmega(MARS * 0.1);
+				venus.SetOmega(VENUS * 0.1);
+				mercury.SetOmega(MERCURY * 0.1);
+			}
+			else
+			{
+				sloMo = false;
+				earth.SetOmega(EARTH);
+				mars.SetOmega(MARS);
+				mercury.SetOmega(MERCURY);
+				venus.SetOmega(VENUS);
+				ship->SetT(2.5);
+			}
+		}
+
+		if (y_eye < 15) q++;
 	}
 }
 
