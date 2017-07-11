@@ -1,25 +1,32 @@
 #pragma once
 #include "Ship2.h"
-#include "Obstacle.h"
-#include "Asteroid.h"
-#include "UFO.h"
-#include "Fuel.h"
-#include "Wormholes.h"
 #include "Vector2.h"
 #include "Phase.h"
-#define MAX 500
+#include "Elements.h"
+#include "Puntuation.h"
+#include "ETSIDI.h"
+#include "Alien.h"
+#define MAX 600
 
 class Phase2 :public Phase
 {
-	Obstacle* List[MAX];
+	Elements *List[MAX];
 	float x_eye, y_eye, z_eye;
-	Ship2 *ship;
+	Ship2 *spacecraft;
+	Puntuation punt;
+	int elim;
+	ETSIDI::SpriteSequence *explosion;
+	bool boom;
+	int explosion_time, invincible_time;
+	bool tutorial, game, succes,gameover;
+	bool invincible;
 public:
-	Phase2() {}
+	Phase2();
 	virtual ~Phase2();
 	void Initialize();
 	void Draw();
 	virtual void Timer();
 	virtual void Key(unsigned char key, int x_t, int y_t);
+	void SpecialKey(int key);
 };
 

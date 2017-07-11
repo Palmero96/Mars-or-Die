@@ -8,4 +8,3 @@ public:
 	~LifeBar();
 	void Draw();
 };
-

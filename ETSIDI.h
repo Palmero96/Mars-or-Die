@@ -111,6 +111,7 @@ namespace ETSIDI
 		ETSIDI_API virtual void loop();
 		void setPos(float x, float y);
 		Vector2D getPos();
+		Vector2D getCenter();
 		void setVel(float vx, float vy);
 		void setSize(float w, float h);
 		void setCenter(float cx, float cy);
@@ -187,4 +188,5 @@ namespace ETSIDI
 	inline bool Sprite::isFlippedH() const { return horizontal_flip; }
 	inline bool Sprite::isFlippedV() const { return vertical_flip; }
 	inline Vector2D Sprite::getPos() { return pos; }
-}//ETSIDI
+	inline Vector2D Sprite::getCenter() { return anchor; }
+}//ETSIDI	

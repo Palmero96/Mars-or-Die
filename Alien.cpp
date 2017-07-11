@@ -1,15 +1,14 @@
 #include "Alien.h"
-#define MAX_X 1000
-#define MAX_Y -300
-//#define MAX_H 10
-//#define MAX_W 10
+#define vel 3
 
 
-Alien::Alien(const char *name)
+
+Alien::Alien(const char *name,TYPE itype):Elements(itype, name)
 {
-	image = new ETSIDI::Sprite(name, rand() % MAX_X, rand() % 600 + MAX_Y, 5, 5);
-	x = rand() % MAX_X;
-	y = rand() % MAX_Y;
+	pos.x = getPos().x;
+	pos.y = getPos().y;
+	setSize(15, 5);
+	velo = rand() % (2 * vel) - vel;
 }
 
 
@@ -17,10 +16,14 @@ Alien::~Alien()
 {
 }
 
-void Alien::Draw(Vector2 pos) {
-	/*while (-300 < y < 300)y = y + rand() % 10 - 10;
-	if (y <=-300)y = y + 100;
-	if (y >= 300)y = y - 100;
-	image->setPos(x, y);*/
-	image->draw();
+
+void Alien::draw() {
+	setPos(pos.x, pos.y);
+	Sprite::draw();
+}
+
+void Alien::move() {
+	pos.y += velo* 0.25;
+	if (pos.y > 300)pos.y = -300;
+	if (getPos().y < -300)pos.y = 300;
 }

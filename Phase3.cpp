@@ -16,7 +16,7 @@ Phase3::Phase3()
 	landingPad = new SpriteSequence("textures/phase3/landingPad.png", 2, 1, 1000, true, 0, landPos, 20, 8);
 	landingPad->flip(false, true);
 
-	landingZone = new Sprite("textures/phase3/landZone.png", 0, landPos,0,0);
+	landingZone = new Sprite("textures/phase3/landZone.png", 0, landPos, 0, 0);
 	landingZone->setSize(80, 39);
 	fuelBar.SetNum(hermes->GetFuel());
 	lifeBar.SetNum(hermes->GetLife());
@@ -97,7 +97,7 @@ void Phase3::Draw()
 		0.0, eye_y - 13, 0.0,      // hacia que punto mira  (0,0,0) 
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y) 
 
-	
+
 	fuel.Draw();
 	aliens.Draw();
 	hermes->Draw();
@@ -147,7 +147,7 @@ void Phase3::Draw()
 
 	clouds.Draw();
 
-	
+
 
 	glDisable(GL_BLEND); // VERY IMPORTANT! DON'T CHANGE THE ORTHER OF THESE FUNCTIONS BELOW (or the Vogons will come to read us their poetry...)
 	glDepthMask(GL_TRUE);
@@ -162,7 +162,7 @@ void Phase3::Draw()
 	{
 		ETSIDI::setTextColor(1, 1, 1);
 		ETSIDI::setFont("fonts/nasalization-rg.ttf", 40);
-		ETSIDI::printxy("mission completed!", -15 , hermes->GetPos().y + 15);
+		ETSIDI::printxy("mission completed!", -15, hermes->GetPos().y + 15);
 	}
 	if (game_over)
 	{
@@ -177,13 +177,13 @@ void Phase3::Timer()
 {
 	if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y >-2)
 	{
-			hermes->Land();
-			game_status = true;
-			if (!radio_sound)
-			{
-				ETSIDI::play("music/radio.wav");
-				radio_sound = true;
-			}
+		hermes->Land();
+		game_status = true;
+		if (!radio_sound)
+		{
+			ETSIDI::play("music/radio.wav");
+			radio_sound = true;
+		}
 	}
 
 	else
@@ -191,7 +191,7 @@ void Phase3::Timer()
 		if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y < -2)
 			hermes->SetAlive(false);
 
-		if(hermes->GetBurning()) aliens.ListBurn(hermes->GetFlame());
+		if (hermes->GetBurning()) aliens.ListBurn(hermes->GetFlame());
 
 		if (hermes->Alive())
 		{
@@ -201,9 +201,9 @@ void Phase3::Timer()
 
 		if (Interaction::Contact(*hermes, *landingZone))	hermes->SetAlive(false);
 
-		cout << hermes->GetPos().y << "		" << landingPad->getPos().y  << endl;
+		cout << hermes->GetPos().y << "		" << landingPad->getPos().y << endl;
 
-		aliens.Check(); 
+		aliens.Check();
 		fuel.Check();
 		fuelBar.SetNum(hermes->GetFuel());
 		lifeBar.SetNum(hermes->GetLife());
@@ -218,7 +218,7 @@ void Phase3::Timer()
 		clouds.Move();
 		fuel.Move();
 		aliens.Move();
-		
+
 
 		if (hermes->GetPos().y < -110 && hermes->GetPos().y > -143 && !game_over)
 			surfacePos -= hermes->GetVel().y * 0.02;
@@ -254,12 +254,12 @@ void Phase3::Key(unsigned char key, int x_t, int y_t)
 	switch (key)
 	{
 	case ' ':
-		if(!game_over)
-		hermes->SetAlive(false);
+		if (!game_over)
+			hermes->SetAlive(false);
 		break;
 
 	case 'f':
-		if(hermes->GetFuel()<7)hermes->SetFuel(hermes->GetFuel() + 1);
+		if (hermes->GetFuel()<7)hermes->SetFuel(hermes->GetFuel() + 1);
 		hermes->SetLife(3);
 		ETSIDI::play("music/cheat.wav");
 		break;

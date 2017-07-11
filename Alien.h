@@ -1,12 +1,14 @@
 #pragma once
-#include "Obstacle.h"
-class Alien :public Obstacle
+#include "Elements.h"
+class Alien :public Elements
 {
-	float x, y;
+	Vector2 pos;
+	float velo;
 public:
-	Alien(const char *name);
+	Alien(const char *name = "textures/phase2/Alien.png", TYPE itype = ALIEN);
 	~Alien();
-	void Draw(Vector2 pos);
+	void draw();
+	void move();
 	friend class Interaction;
 };
 

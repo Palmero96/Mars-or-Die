@@ -13,7 +13,7 @@ class Coordinator
 	Phase1 phase1;
 	Phase2 phase2;
 	Phase3 phase3;
-	enum State { HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER, END};
+	enum State { HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER, END };
 	State phase;
 	State prevState;	// works as an auxiliar state for the pause implementation
 

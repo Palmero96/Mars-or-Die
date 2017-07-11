@@ -51,7 +51,6 @@ void Coordinator::Draw()
 	case GAME_OVER:
 
 		break;
-
 	case END:
 
 		break;
@@ -84,7 +83,7 @@ void Coordinator::Music()
 
 		case 1:
 			t += 0.025;
-			if(!b)
+			if (!b)
 			{
 				ETSIDI::playMusica("music/final_song.mp3", false);
 				b = true;
@@ -196,6 +195,8 @@ void Coordinator::Key(unsigned char key, int x_t, int y_t)
 
 void Coordinator::ArrowKey(int key, int x, int y)
 {
+	if (phase == SECOND_PHASE)
+		phase2.SpecialKey(key);
 	if (phase == THIRD_PHASE)
 		phase3.SpecialKey(key, x, y);
 }
