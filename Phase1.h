@@ -20,7 +20,7 @@ class Phase1 : public Phase
 	Vector2 z;
 	float x_eye, y_eye, z_eye, ang;
 	float x_look, y_look, z_look;
-	bool sloMo, flag;
+	bool sloMo, flag, a;
 	int w, q; // window
 
 public:

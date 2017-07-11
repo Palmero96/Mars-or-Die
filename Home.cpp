@@ -67,8 +67,9 @@ void Home::Timer()
 void Home::Key(unsigned char key, int x_t, int y_t)
 {
 	if (key == 'a')
+	{	play("music/home.wav");
 		text_leave = true;				//     HOME_TEXT_MOVEMENT
-
+	}
 }
 
 void Home::SetText_x(int a) { text_x = a; }

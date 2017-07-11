@@ -35,10 +35,8 @@ bool Interaction::Contact(Capsule &c, Obstacle &o)
 	bool collisionY = c.GetPos().y + c.GetSize().y - 1>= o.GetPos().y &&
 		o.GetPos().y + o.GetSize().y - 1>= c.GetPos().y;
 
-	if(collisionX && collisionY)
-		return true;
-	else
-		return false;
+	if(collisionX && collisionY)	return true;
+	else return false;
 	}
 
 bool Interaction::AlienBurn(SpriteSequence flame, Obstacle &alien)
@@ -49,12 +47,8 @@ bool Interaction::AlienBurn(SpriteSequence flame, Obstacle &alien)
 	bool collisionY = flame.getPos().y + 9 >= alien.GetPos().y &&
 		alien.GetPos().y + alien.GetSize().y - 1 >= flame.getPos().y;
 	
-	if (collisionX && collisionY)
-	{
-		
-		return true;
-
-	}
+	if (collisionX && collisionY)	return true;
+	
 	else return false;	
 }
 

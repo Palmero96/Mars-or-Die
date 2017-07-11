@@ -11,7 +11,7 @@ Phase1::Phase1()
 	ship = 0;
 	ang = 0;
 	game_status = 0;
-	w = q =0;
+	w = q = a = 0;
 }
 
 Phase1::~Phase1() { delete ship; }
@@ -82,6 +82,7 @@ void Phase1::Draw()
 		default:
 			break;
 		}
+
 	}
 
 	gluLookAt(x_eye, y_eye, z_eye,  // posicion del ojo
@@ -138,6 +139,11 @@ void Phase1::Timer()
 
 		if (ship->GetOrbit())
 		{
+			if (!a)
+			{
+				play("music/ship.wav");
+				a = true;
+			}
 			ship->OrbitAround(mars.GetPos()); // with this condition on you are able to pass to the next phase
 			CloseUp();
 			x_look = mars.GetPos().x;
@@ -147,10 +153,8 @@ void Phase1::Timer()
 			mars.SetOmega(MARS);
 			mercury.SetOmega(MERCURY);
 			venus.SetOmega(VENUS);
-
-			if (q >= 2 && mars.GetPos().x > -10 && mars.GetPos().x < 0 && mars.GetPos().y > 310)
-				game_status = true;
 		}
+
 		else
 			ship->Move();
 	}
@@ -176,11 +180,12 @@ void Phase1::Key(unsigned char key, int x_t, int y_t)
 	if (key == ' ')
 	{
 		w++;
-
+		if(w<=3) play("music/beep.wav");
 		if (w > 3 && y_eye > 15)
 		{
 			if (!sloMo)
 			{
+				play("music/launch.wav");
 				sloMo = true;
 				ship = new Ship;
 				ship->SetPos(earth.GetPos());
@@ -202,7 +207,13 @@ void Phase1::Key(unsigned char key, int x_t, int y_t)
 			}
 		}
 
-		if (y_eye < 15) q++;
+		if (y_eye < 15)
+		{
+			q++;
+			play("music/beep.wav");
+			if( q > 3)
+				game_status = true;
+		}
 	}
 }
 

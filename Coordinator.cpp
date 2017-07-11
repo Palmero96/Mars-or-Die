@@ -52,6 +52,10 @@ void Coordinator::Draw()
 
 		break;
 
+	case END:
+
+		break;
+
 	default: break;
 	}
 }
@@ -75,16 +79,22 @@ void Coordinator::Music()
 			ETSIDI::playMusica("music/phase3_song.mp3", false);
 			a = true;
 		}
-		switch (phase3.GameOver())
+		switch (phase3.GetStatus())
 		{
 
 		case 1:
+			t += 0.025;
 			if(!b)
 			{
 				ETSIDI::playMusica("music/final_song.mp3", false);
 				b = true;
 			}
+			if (t >= 7.12) phase = END;
 			break;
+
+		case END:
+			break;
+
 		default:
 			break;
 		}
@@ -117,12 +127,12 @@ void Coordinator::Timer()
 
 		switch (phase3.GameOver())
 		{
-			case 0:
+			case 1:
 				t += 0.025;
 					if(t>5)
 				phase = GAME_OVER;
 				break;
-			case 1:		
+			case 0:		
 				break;
 		}
 

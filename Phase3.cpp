@@ -191,9 +191,13 @@ void Phase3::Timer()
 		if (Interaction::Contact(*hermes, *landingPad) && hermes->GetVel().y < -2)
 			hermes->SetAlive(false);
 
-		aliens.ListBurn(hermes->GetFlame());
-		aliens.ListCollision(*hermes);
-		fuel.ListCollision(*hermes);
+		if(hermes->GetBurning()) aliens.ListBurn(hermes->GetFlame());
+
+		if (hermes->Alive())
+		{
+			aliens.ListCollision(*hermes);
+			fuel.ListCollision(*hermes);
+		}
 
 		if (Interaction::Contact(*hermes, *landingZone))	hermes->SetAlive(false);
 
