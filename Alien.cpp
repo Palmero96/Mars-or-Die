@@ -3,7 +3,7 @@
 
 
 
-Alien::Alien(const char *name,TYPE itype):Elements(itype, name)
+Alien::Alien(const char *name, TYPE itype) :Elements(itype, name)
 {
 	pos.x = getPos().x;
 	pos.y = getPos().y;

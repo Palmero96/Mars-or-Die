@@ -4,6 +4,7 @@
 
 Phase::Phase()
 {
+	game_over = game_status = false;
 }
 
 
@@ -21,4 +22,9 @@ void Phase::Draw()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
+}
+
+Puntuation Phase::GetPoints()
+{
+	return punt;
 }

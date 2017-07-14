@@ -3,9 +3,9 @@
 #include "Vector2.h"
 #include "Interaction.h"
 
-enum TYPE {ASTEROID1,ASTEROID2,ASTEROID3,FUEL,BONUS,LIFE,ALIEN};
+enum TYPE { ASTEROID1, ASTEROID2, ASTEROID3, FUEL, BONUS, LIFE, ALIEN };
 
-class Elements: public ETSIDI::Sprite
+class Elements : public ETSIDI::Sprite
 {
 	TYPE type;
 public:

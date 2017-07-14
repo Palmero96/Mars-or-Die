@@ -2,7 +2,11 @@
 
 
 
-ObstacleList::ObstacleList() { explosion = 0; }
+ObstacleList::ObstacleList() 
+{ 
+	explosion = 0;
+	contact = false;
+}
 
 
 ObstacleList::~ObstacleList() {}
@@ -116,9 +120,9 @@ void ObstacleList::ListCollision(Capsule &c)
 					if (c.GetFuel() < 7)
 						c.SetFuel(c.GetFuel() + 1);
 				}
+				contact = true;
 			}
 		}
-
 	}
 }
 
@@ -137,6 +141,7 @@ void ObstacleList::ListBurn(SpriteSequence f)
 
 					ETSIDI::play("music/alienKilled.wav");
 					list[i]->SetAlive(false);
+					contact =  true;
 				}
 			}
 
@@ -144,3 +149,8 @@ void ObstacleList::ListBurn(SpriteSequence f)
 	}
 }
 
+
+
+void ObstacleList::SetContact(bool b) { contact = b; }
+
+bool ObstacleList::GetContact() { return contact; }

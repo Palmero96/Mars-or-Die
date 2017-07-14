@@ -1,5 +1,6 @@
 #pragma once
 #include "Elements.h"
+
 class Alien :public Elements
 {
 	Vector2 pos;

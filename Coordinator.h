@@ -1,7 +1,9 @@
 #pragma once
 #include "Phase1.h"
 #include "Phase2.h"
+#include "GameOver.h"
 #include "Pause.h"
+#include "End.h"
 #include "Phase3.h"
 #include "Home.h"
 
@@ -10,14 +12,16 @@ class Coordinator
 	Window window;
 	Home home;
 	Pause pause;
-	Phase1 phase1;
-	Phase2 phase2;
-	Phase3 phase3;
-	enum State { HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER, END };
+	End *end;
+	Phase1 *phase1;
+	Phase2 *phase2;
+	Phase3 *phase3;
+	GameOver *gameOver;
+	enum State { HOME, PAUSE, FIRST_PHASE, SECOND_PHASE, THIRD_PHASE, GAME_OVER, END};
 	State phase;
 	State prevState;	// works as an auxiliar state for the pause implementation
 
-	bool p, a,b,c;   // setting the pause state with only one key
+	bool p, a,b,c,d;   // setting the pause state with only one key
 	float t;
 
 public:

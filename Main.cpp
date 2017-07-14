@@ -46,6 +46,7 @@ void OnDraw(void)
 	glLoadIdentity();
 
 	coord.Draw();
+	coord.Music();
 
 	glutSwapBuffers();
 

@@ -9,7 +9,7 @@
 
 class Interaction
 {
-	
+
 public:
 
 	Interaction();

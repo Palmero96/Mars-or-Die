@@ -15,8 +15,8 @@ using namespace std;
 using ETSIDI::getTexture;
 
 #define CLOUDS 80
-#define ALIENS 90
-#define FUEL 10
+#define ALIENS 100
+#define FUEL 35
 
 class Phase3 : public Phase
 {

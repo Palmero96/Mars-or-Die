@@ -10,6 +10,7 @@ class ObstacleList
 	Obstacle *list[MAXIMUM];
 	SpriteSequence *explosion;
 	int num;
+	bool contact;
 
 public:
 	ObstacleList();
@@ -28,6 +29,9 @@ public:
 
 	void ListCollision(Capsule &);
 	void ListBurn(SpriteSequence);
+
+	bool GetContact();
+	void SetContact(bool);
 
 	void Check();
 };

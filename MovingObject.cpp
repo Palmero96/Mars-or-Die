@@ -13,7 +13,7 @@ MovingObject::~MovingObject() {}
 void MovingObject::Move()
 {
 	float t = 0.025;
-	position = position + vel * t + acc * pow(t, 2);
+	position = position + vel * t + acc * t * t;
 	vel = vel + acc * t;
 }
 

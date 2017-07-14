@@ -7,11 +7,12 @@
 
 class Ship2
 {
-	ETSIDI::SpriteSequence *up, *down,*center;
+	ETSIDI::SpriteSequence *up, *down, *center;
 	ETSIDI::Sprite *ship;
 	Vector2 position, velocity, acc;
 	float angle;
 	bool undraw;
+	bool die;
 public:
 
 	Ship2(const char *name);
@@ -23,6 +24,9 @@ public:
 	void Draw();
 	bool Win();
 	void reset();
+	ETSIDI::Vector2D getPos();
+	ETSIDI::Vector2D getCenter();
+	void stop();
 
 	Vector2 GetPos();
 	void Key(unsigned char key);

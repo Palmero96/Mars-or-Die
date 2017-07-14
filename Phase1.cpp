@@ -31,16 +31,16 @@ void Phase1::Initialize() {
 
 	sun.SetColor(1.0F, 1.0F, 1.0F);
 	sun.SetRadius(20);
-
+	
 	earth.SetIni(1.0F, 1.0F, 1.0F, 6, 200, EARTH);//4.5
-
+												 
 	mars.SetIni(1.0F, 1.0F, 1.0F, 5.5, 320, MARS);//3
-
+												 
 	mercury.SetIni(1.0F, 1.0F, 1.0F, 3.5, 30, MERCURY);//2
 													   //Se inicializa venus
 	venus.SetIni(1.0F, 1.0F, 1.0F, 2, 60, VENUS);//2.8
 
-
+	
 
 }
 
@@ -60,7 +60,7 @@ void Phase1::Draw()
 			window.Draw(0, 0, 5);
 			break;
 		}
-
+		
 	}
 
 	if (y_eye > 15)
@@ -180,7 +180,7 @@ void Phase1::Key(unsigned char key, int x_t, int y_t)
 	if (key == ' ')
 	{
 		w++;
-		if (w <= 3) play("music/beep.wav");
+		if(w<=3) play("music/beep.wav");
 		if (w > 3 && y_eye > 15)
 		{
 			if (!sloMo)
@@ -211,7 +211,7 @@ void Phase1::Key(unsigned char key, int x_t, int y_t)
 		{
 			q++;
 			play("music/beep.wav");
-			if (q > 3)
+			if( q > 3)
 				game_status = true;
 		}
 	}

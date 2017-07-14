@@ -33,11 +33,3 @@ void Planet::SetIni(float ir, float ig, float ib, float irad, float iror, float 
 	SetOmega(plan);
 	SetAngle(rand() % 360);
 }
-
-/*
-earth.SetColor(0.0F, 0.0F, 1.0F);
-earth.SetRadius(4.5);
-earth.SetOrbitRadius(210);
-earth.SetOmega(EARTH);
-earth.SetAngle(rand()%360);
-*/
