@@ -97,3 +97,15 @@ June 26th 2017
    - You can kill aliens by turning on the engine and standing above them.
    - The lifes left are shown in the upper right corner.
    - Phase 1 has been updated, so the game story is shown first and then the game begins.
+   
+ July 14th 2017
+   - After some code reorganization the project is finished
+   - There are two more phase classes, class End, that its called once the succesfully 
+   complete the game and class GameOver. I'll let you deduce its purpose.
+   - The total sum of points is shown in the End class.
+   - The puntuation is managed by class Puntuation, which prints on the screen the amount
+   of points of eacch phase.
+   
+   
+   We got a 10/10 points on the project! It's good to have some good feedback
+   from university now and then...
